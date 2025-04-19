@@ -1,0 +1,5 @@
+.git
+.gitignore
+.dockerignore
+.ruff_cache
+.pytest_cache
