@@ -16,7 +16,6 @@ export const Route = createRootRouteWithContext<{
     return (
       <div>
         <p>This is the notFoundComponent configured on root route</p>
-        <Link to="/">Start Over</Link>
       </div>
     )
   },
@@ -33,7 +32,7 @@ function RootComponent() {
           }}
           activeOptions={{ exact: true }}
         >
-          Home
+          About
         </Link>{' '}
         <Link
           to="/posts"
@@ -43,23 +42,6 @@ function RootComponent() {
         >
           Posts
         </Link>{' '}
-        <Link
-          to="/route-a"
-          activeProps={{
-            className: 'font-bold',
-          }}
-        >
-          Pathless Layout
-        </Link>{' '}
-        <Link
-          // @ts-expect-error
-          to="/this-route-does-not-exist"
-          activeProps={{
-            className: 'font-bold',
-          }}
-        >
-          This Route Does Not Exist
-        </Link>
       </div>
       <hr />
       <Outlet />

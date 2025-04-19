@@ -1,2 +1,10 @@
-.ruff_cache
-.zsh_history
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

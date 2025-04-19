@@ -1,6 +1,0 @@
-services:
-  devcontainer:
-    build: 
-      context: ../../frontend
-      dockerfile: Dockerfile
-      target: development
