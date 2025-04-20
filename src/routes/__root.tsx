@@ -1,15 +1,15 @@
-import * as React from 'react'
+import * as React from "react";
 import {
   Link,
   Outlet,
   createRootRouteWithContext,
-} from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import type { QueryClient } from '@tanstack/react-query'
+} from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import type { QueryClient } from "@tanstack/react-query";
 
 export const Route = createRootRouteWithContext<{
-  queryClient: QueryClient
+  queryClient: QueryClient;
 }>()({
   component: RootComponent,
   notFoundComponent: () => {
@@ -17,9 +17,9 @@ export const Route = createRootRouteWithContext<{
       <div>
         <p>This is the notFoundComponent configured on root route</p>
       </div>
-    )
+    );
   },
-})
+});
 
 function RootComponent() {
   return (
@@ -28,25 +28,41 @@ function RootComponent() {
         <Link
           to="/"
           activeProps={{
-            className: 'font-bold',
+            className: "font-bold",
           }}
           activeOptions={{ exact: true }}
         >
           About
-        </Link>{' '}
+        </Link>{" "}
         <Link
           to="/posts"
           activeProps={{
-            className: 'font-bold',
+            className: "font-bold",
           }}
         >
           Posts
-        </Link>{' '}
+        </Link>{" "}
+        <Link
+          to="/auth/login"
+          activeProps={{
+            className: "font-bold",
+          }}
+        >
+          Login
+        </Link>{" "}
+        <Link
+          to="/auth/logout"
+          activeProps={{
+            className: "font-bold",
+          }}
+        >
+          Logout
+        </Link>{" "}
       </div>
       <hr />
       <Outlet />
       <ReactQueryDevtools buttonPosition="top-right" />
       <TanStackRouterDevtools position="bottom-right" />
     </>
-  )
+  );
 }
