@@ -1,0 +1,26 @@
+{
+	"name": "Posts",
+	"dockerComposeFile": "docker-compose.yaml",
+	"service": "devcontainer",
+	"workspaceFolder": "/app",
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {}, // installs github cli
+		"ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {} // installs zsh with oh-my-zsh configured
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"charliermarsh.ruff",
+				"ms-python.debugpy"
+			]
+		}
+	},
+	"forwardPorts": [
+		8000
+	],
+	"mounts": [
+		"source=zsh-history,type=volume,target=/app/.zsh_history", // Persist zsh history
+		"source=../../.git,type=bind,target=/app/.git",
+		"source=../../posts,type=bind,target=/app"
+	]
+}
