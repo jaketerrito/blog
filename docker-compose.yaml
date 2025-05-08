@@ -1,0 +1,33 @@
+services:
+  posts-devcontainer:
+    build: 
+      context: ./posts
+      dockerfile: Dockerfile
+      target: development
+    depends_on:
+      - posts-db
+    environment:
+      DB_URI: mongodb://root:example@posts-db:27017
+  posts-db:
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - posts-db-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+  frontend-devcontainer:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    command: ["npm", "run", "dev"]
+    depends_on:
+      - posts-devcontainer
+    environment:
+      - POSTS_API_URL=http://posts-devcontainer:8000
+networks:
+  default:
+    name: test-network
+volumes:
+  posts-db-data: 

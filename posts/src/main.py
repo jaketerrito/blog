@@ -1,4 +1,5 @@
 import logging
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -13,7 +14,7 @@ logger = logging.getLogger()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    db_client = AsyncIOMotorClient("mongodb://root:example@mongodb:27017")
+    db_client = AsyncIOMotorClient(os.getenv("DB_URI"))
     await init_database(db_client)
     yield
     # Shutdown

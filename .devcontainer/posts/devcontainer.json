@@ -1,7 +1,7 @@
 {
 	"name": "Posts",
-	"dockerComposeFile": "docker-compose.yaml",
-	"service": "devcontainer",
+	"dockerComposeFile": "${localWorkspaceFolder}/docker-compose.yaml",
+	"service": "posts-devcontainer",
 	"workspaceFolder": "/app",
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli:1": {}, // installs github cli
@@ -20,7 +20,7 @@
 	],
 	"mounts": [
 		"source=zsh-history,type=volume,target=/app/.zsh_history", // Persist zsh history
-		"source=../../.git,type=bind,target=/app/.git",
-		"source=../../posts,type=bind,target=/app"
+		"source=${localWorkspaceFolder}/.git,type=bind,target=/app/.git",
+		"source=${localWorkspaceFolder}/posts,type=bind,target=/app"
 	]
 }

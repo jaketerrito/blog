@@ -1,7 +1,7 @@
 {
 	"name": "Frontend",
-	"dockerComposeFile": "docker-compose.yaml",
-	"service": "devcontainer",
+	"dockerComposeFile": "${localWorkspaceFolder}/docker-compose.yaml",
+	"service": "frontend-devcontainer",
 	"workspaceFolder": "/app",
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli:1": {}, // installs github cli
@@ -21,7 +21,7 @@
 	"mounts": [
 		"source=zsh-history,type=volume,target=/app/.zsh_history", // Persist zsh history
 		"source=frontend-node-modules,type=volume,target=/app/node_modules", // Store node_modules in volume
-		"source=../../.git,type=bind,target=/app/.git",
-		"source=../.,type=bind,target=/app"
+		"source=${localWorkspaceFolder}/.git,type=bind,target=/app/.git",
+		"source=${localWorkspaceFolder}/frontend,type=bind,target=/app"
 	]
 }
