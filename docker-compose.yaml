@@ -8,6 +8,10 @@ services:
       - posts-db
     environment:
       DB_URI: mongodb://root:example@posts-db:27017
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./posts:/posts
   posts-db:
     image: mongo:latest
     restart: unless-stopped
@@ -15,7 +19,7 @@ services:
       - posts-db-data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_PASSWORD: example 
   frontend-devcontainer:
     build: 
       context: ./frontend
@@ -26,8 +30,18 @@ services:
       - posts-devcontainer
     environment:
       - POSTS_API_URL=http://posts-devcontainer:8000
+    ports:
+      - "5173:5173"
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+      # Optional: Uncomment this when using the root-level devcontainer
+      # - .:/workspace
 networks:
   default:
     name: test-network
 volumes:
-  posts-db-data: 
+  posts-db-data:
+  frontend-node-modules:
+  frontend-zsh-history:
+  posts-zsh-history: 

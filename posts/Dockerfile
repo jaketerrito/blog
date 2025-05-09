@@ -2,7 +2,7 @@
 FROM python:3.13-slim-bookworm AS base
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-WORKDIR /app
+WORKDIR /posts
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 

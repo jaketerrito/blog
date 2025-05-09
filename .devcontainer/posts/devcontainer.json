@@ -2,7 +2,7 @@
 	"name": "Posts",
 	"dockerComposeFile": "${localWorkspaceFolder}/docker-compose.yaml",
 	"service": "posts-devcontainer",
-	"workspaceFolder": "/app",
+	"workspaceFolder": "/posts",
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli:1": {}, // installs github cli
 		"ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {} // installs zsh with oh-my-zsh configured
@@ -15,12 +15,11 @@
 			]
 		}
 	},
-	"forwardPorts": [
-		8000
-	],
 	"mounts": [
-		"source=zsh-history,type=volume,target=/app/.zsh_history", // Persist zsh history
-		"source=${localWorkspaceFolder}/.git,type=bind,target=/app/.git",
-		"source=${localWorkspaceFolder}/posts,type=bind,target=/app"
-	]
+		"source=posts-zsh-history,type=volume,target=/posts/.zsh_history", // Persist zsh history
+		"source=${localWorkspaceFolder}/.git,type=bind,target=/posts/.git",
+		"source=${localWorkspaceFolder}/posts,type=bind,target=/posts"
+	],
+	// Keep only this service and its dependencies running
+	"runServices": ["posts-devcontainer", "posts-db"]
 }

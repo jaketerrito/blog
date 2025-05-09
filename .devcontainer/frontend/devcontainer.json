@@ -2,7 +2,7 @@
 	"name": "Frontend",
 	"dockerComposeFile": "${localWorkspaceFolder}/docker-compose.yaml",
 	"service": "frontend-devcontainer",
-	"workspaceFolder": "/app",
+	"workspaceFolder": "/frontend",
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli:1": {}, // installs github cli
 		"ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {} // installs zsh with oh-my-zsh configured
@@ -15,13 +15,12 @@
 			]
 		}
 	},
-	"forwardPorts": [
-		5173, 3000
-	],
 	"mounts": [
-		"source=zsh-history,type=volume,target=/app/.zsh_history", // Persist zsh history
-		"source=frontend-node-modules,type=volume,target=/app/node_modules", // Store node_modules in volume
-		"source=${localWorkspaceFolder}/.git,type=bind,target=/app/.git",
-		"source=${localWorkspaceFolder}/frontend,type=bind,target=/app"
-	]
+		"source=frontend-zsh-history,type=volume,target=/frontend/.zsh_history", // Persist zsh history
+		"source=frontend-node-modules,type=volume,target=/frontend/node_modules", // Store node_modules in volume
+		"source=${localWorkspaceFolder}/.git,type=bind,target=/frontend/.git",
+		"source=${localWorkspaceFolder}/frontend,type=bind,target=/frontend"
+	],
+	// Keep only this service and its dependencies running
+	"runServices": ["frontend-devcontainer"]
 }

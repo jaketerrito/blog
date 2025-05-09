@@ -1,7 +1,7 @@
 FROM node:20 AS development
 
 # Set working directory
-WORKDIR /app
+WORKDIR /frontend
 
 COPY package.json package-lock.json  ./
 RUN npm ci
