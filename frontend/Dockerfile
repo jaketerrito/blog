@@ -6,4 +6,4 @@ WORKDIR /frontend
 COPY package.json package-lock.json  ./
 RUN npm ci
 
-CMD ["sleep", "infinity"]
+CMD ["npm", "run", "dev"]

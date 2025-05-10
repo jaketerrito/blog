@@ -1,5 +1,1 @@
-# Example
-
-To run this example:
-
-`npm run dev`
+Tanstack start project based off https://tanstack.com/start/latest/docs/framework/react/build-from-scratch
