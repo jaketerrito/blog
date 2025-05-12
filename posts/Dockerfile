@@ -11,6 +11,13 @@ COPY requirements-dev.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements-dev.txt
 CMD ["sleep", "infinity"]
 
+# Testing stage specifically for CI
+FROM development AS test
+COPY ./src ./src
+COPY ./tests ./tests
+# Default test command - can be overridden in CI config
+CMD ["pytest", "--cov=src", "--cov-report=xml"]
+
 # Production stage - clean image without dev dependencies
 FROM base AS server
 # Copy application code

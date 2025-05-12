@@ -13,7 +13,14 @@ router = APIRouter(prefix="/blog-post")
 async def get_blog_post(
     blog_post_id: str, user_id: Annotated[str | None, Header()] = None
 ) -> BlogPost:
-    blog_post = await BlogPost.find_one(BlogPost.id == PydanticObjectId(blog_post_id))
+    try:
+        blog_post_id = PydanticObjectId(blog_post_id)
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid blog post id"
+        )
+
+    blog_post = await BlogPost.find_one(BlogPost.id == blog_post_id)
 
     if not blog_post:
         raise HTTPException(
@@ -35,14 +42,18 @@ async def get_blog_posts_by_author(
     skip: int = 0,
     limit: int = 20,
     user_id: Annotated[str | None, Header()] = None,
-) -> List[BlogPost]:
+) -> List[str]:
     query = {"author_id": author_id}
     if user_id != author_id:
         query["public"] = True
-    return (
+
+    posts = (
         await BlogPost.find(query)
         .sort([("created_at", pymongo.DESCENDING)])
         .skip(skip)
         .limit(limit)
         .to_list()
     )
+
+    # Extract only the IDs and return them as strings
+    return [str(post.id) for post in posts]

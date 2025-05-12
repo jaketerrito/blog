@@ -21,6 +21,7 @@
             "request": "launch",
             "purpose": ["debug-test"],
             "console": "integratedTerminal",
+            "module": "pytest"
           }
     ]
 }

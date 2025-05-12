@@ -20,6 +20,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example 
+  posts-test:
+    build:
+      context: ./posts
+      dockerfile: Dockerfile
+      target: test
   frontend-devcontainer:
     build: 
       context: ./frontend
