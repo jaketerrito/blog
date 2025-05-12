@@ -12,7 +12,6 @@ on:
     paths:
       - 'posts/**'
       - 'docker-compose.yaml'
-  workflow_dispatch:  # Allow manual triggering
 
 jobs:
   test:
