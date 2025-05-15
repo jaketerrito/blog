@@ -1,0 +1,17 @@
+services:
+  development:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+      target: development
+    environment:
+      - POSTS_API_URL=http://host.docker.internal:8000
+    ports:
+      - "5173:5173"
+      - "3000:3000"
+    volumes:
+      - ./:/frontend
+      - node_modules:/frontend/node_modules
+volumes:
+  node_modules:
+  

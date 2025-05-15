@@ -1,0 +1,24 @@
+services:
+  development:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+      target: development
+    depends_on:
+      - db
+    environment:
+      DB_URI: mongodb://root:example@posts-db:27017
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/posts
+  db:
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - db-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example 
+volumes:
+  db-data:

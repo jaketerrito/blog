@@ -4,3 +4,4 @@ pytest-asyncio
 pytest-sugar
 mongomock-motor
 pre-commit
+ruff

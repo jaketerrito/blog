@@ -1,6 +1,6 @@
 export async function apiRequest<T>(
   url: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   const response = await fetch(`${url}`, {
     headers: {
