@@ -8,9 +8,10 @@ export async function apiRequest<T>(
     },
     ...options,
   });
-  if (!response.ok) {
-    const message = (await response.json()).detail;
-    throw Error("Downstream Error: " + response.status + " " + message);
+  if (response.ok) {
+    return response.json();
   }
-  return response.json();
+  
+  const message = (await response.json()).detail;
+  throw Error(message);
 }

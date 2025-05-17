@@ -1,6 +1,9 @@
 # blog-post-service
 Service for managing blog posts
 
+# Prerequisites
+- pyenv installed
+- `make configure_local_python`
 
 https://github.com/Kludex/fastapi-tips
 https://github.com/zhanymkanov/fastapi-best-practices

@@ -6,6 +6,7 @@ from fastapi import status
 from pytest_asyncio import fixture
 
 from src.models import BlogPost
+from src.routes.read import BlogPostPreview
 from tests.conftest import AUTHOR_ID
 
 
@@ -38,7 +39,7 @@ async def private_blog_post():
         author_id=AUTHOR_ID,
         title="private",
         public=False,
-        created_at=datetime.now() - timedelta(days=1),
+        created_at=datetime.now() - timedelta(days=99),
     )
     await blog_post.save()
     yield blog_post
@@ -114,7 +115,9 @@ def test_get_blog_posts_by_author_pagination(client, public_blog_posts):
     assert response.status_code == status.HTTP_200_OK
     response_json = response.json()
     assert len(response_json) == 1
-    assert response_json[0] == str(public_blog_posts[0].id)
+    assert BlogPostPreview(**response_json[0]) == BlogPostPreview(
+        id=str(public_blog_posts[0].id), title=public_blog_posts[0].title
+    )
 
 
 def test_get_blog_posts_by_author_private(client, public_blog_posts, private_blog_post):
@@ -126,7 +129,9 @@ def test_get_blog_posts_by_author_private(client, public_blog_posts, private_blo
     assert response.status_code == status.HTTP_200_OK
     response_json = response.json()
     assert len(response_json) == len(public_blog_posts) + 1
-    assert str(private_blog_post.id) in response_json
+    assert BlogPostPreview(**response_json[-1]) == BlogPostPreview(
+        id=str(private_blog_post.id), title=private_blog_post.title
+    )
 
 
 def test_get_blog_posts_by_nonexistent_author(client):

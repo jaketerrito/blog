@@ -3,6 +3,7 @@ from typing import Annotated, List
 import pymongo
 from beanie import PydanticObjectId
 from fastapi import APIRouter, Header, HTTPException, status
+from pydantic import BaseModel
 
 from src.models import BlogPost
 
@@ -36,13 +37,18 @@ async def get_blog_post(
     return blog_post
 
 
+class BlogPostPreview(BaseModel):
+    id: str
+    title: str
+
+
 @router.get("", status_code=status.HTTP_200_OK)
 async def get_blog_posts_by_author(
     author_id: str,
     skip: int = 0,
     limit: int = 20,
     user_id: Annotated[str | None, Header()] = None,
-) -> List[str]:
+) -> List[BlogPostPreview]:
     query = {"author_id": author_id}
     if user_id != author_id:
         query["public"] = True
@@ -55,5 +61,4 @@ async def get_blog_posts_by_author(
         .to_list()
     )
 
-    # Extract only the IDs and return them as strings
-    return [str(post.id) for post in posts]
+    return [BlogPostPreview(id=str(post.id), title=post.title) for post in posts]
