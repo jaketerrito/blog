@@ -2,9 +2,9 @@ name: Posts CI
 
 on:
   push:
-    branches: [ main ]
     paths:
       - 'posts/**'
+      - '.github/workflows/posts.yml'
 
 jobs:
   test:
