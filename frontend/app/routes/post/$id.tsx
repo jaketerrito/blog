@@ -1,6 +1,6 @@
 import { Error } from "@/components";
 import { apiRequest } from "@/modules/api";
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 import Markdown from "react-markdown";
 
@@ -40,7 +40,7 @@ function RouteComponent() {
       <p>{post.author_id}</p>
       <p>{post.created_at}</p>
       <p>{post.updated_at}</p>
-      <p>{post.public}</p>
+      <Outlet />
     </div>
   );
 }
