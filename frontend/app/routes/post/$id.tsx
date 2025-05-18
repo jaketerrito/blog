@@ -1,7 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
 import { Error } from "@/components";
 import { apiRequest } from "@/modules/api";
-import { createServerFn, useServerFn } from '@tanstack/react-start';
+import { createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import Markdown from "react-markdown";
 
 
 export interface BlogPost {
@@ -35,7 +36,7 @@ function RouteComponent() {
   return (
     <div>
       <h1>{post.title}</h1>
-      <p>{post.content}</p>
+      <Markdown>{post.content}</Markdown>
       <p>{post.author_id}</p>
       <p>{post.created_at}</p>
       <p>{post.updated_at}</p>

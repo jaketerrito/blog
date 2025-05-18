@@ -8,7 +8,7 @@ up:
 	docker compose up -d development
 
 down:
-	docker compose down development
+	docker compose down development -v
 
 logs:
 	docker compose logs -f development
