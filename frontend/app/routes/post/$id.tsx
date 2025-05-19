@@ -2,6 +2,7 @@ import { Error } from "@/components";
 import { apiRequest } from "@/modules/api";
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
+import { useState } from "react";
 import Markdown from "react-markdown";
 
 
@@ -32,7 +33,9 @@ export const Route = createFileRoute('/post/$id')({
 })
 
 function RouteComponent() {
-  const post = Route.useLoaderData()
+  const [isEditing, setIsEditing] = useState(false)
+  const [post, setPost] = useState<BlogPost>(Route.useLoaderData())
+  console.log(isEditing)
   return (
     <div>
       <h1>{post.title}</h1>
@@ -40,7 +43,15 @@ function RouteComponent() {
       <p>{post.author_id}</p>
       <p>{post.created_at}</p>
       <p>{post.updated_at}</p>
-      <Outlet />
+      {isEditing ? (
+        <div>
+          <input type="text" value={post.title} onChange={(e) => setPost({ ...post, title: e.target.value })} />
+          <textarea value={post.content} onChange={(e) => setPost({ ...post, content: e.target.value })} />
+        </div>
+      ): <div>Not editing</div>}
+      
+      <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? "Cancel" : "Edit"}</button>
+
     </div>
   );
 }

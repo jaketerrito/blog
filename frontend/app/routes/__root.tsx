@@ -2,10 +2,12 @@ import { Error } from "@/components";
 import { apiRequest } from "@/modules/api";
 import {
   createRootRoute,
+  HeadContent,
   Link,
-  Outlet
+  Outlet,
+  ReactNode
 } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
+import { createServerFn, Scripts } from "@tanstack/react-start";
 
 const MAIN_AUTHOR_ID = "jake";
 const API_URL = process.env.POSTS_API_URL + "/blog-post";
@@ -47,6 +49,7 @@ function RootComponent() {
   const post_ids = Route.useLoaderData();
   
   return (
+    <RootDocument>
       <div style={{ display: 'flex', minHeight: '100vh' }}>
         {/* Sidebar */}
         <div style={{ width: '250px', padding: '20px', borderRight: '1px solid #eaeaea' }}>
@@ -68,5 +71,20 @@ function RootComponent() {
           <Outlet />
         </div>
       </div>
+    </RootDocument>
   );
+}
+
+function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  return (
+    <html>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  )
 }
