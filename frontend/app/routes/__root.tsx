@@ -10,7 +10,6 @@ import {
 import { createServerFn, Scripts } from "@tanstack/react-start";
 
 const MAIN_AUTHOR_ID = "jake";
-const API_URL = process.env.POSTS_API_URL + "/blog-post";
 
 interface BlogPostPreview {
   id: string;
@@ -20,7 +19,11 @@ interface BlogPostPreview {
 const getPostsByAuthorId = createServerFn({ method: "GET" })
   .validator((id: string) => id)
   .handler(async ({ data: id }) => {
-    return apiRequest<BlogPostPreview[]>(`${API_URL}/?author_id=${id}`);
+    return apiRequest<BlogPostPreview[]>(`/blog-post/?author_id=${id}`, {
+      headers: {
+        'user-id': 'jake',
+      },
+    });
 });
 
 export const Route = createRootRoute({

@@ -16,11 +16,15 @@ export interface BlogPost {
   public: boolean;
 }
 
-const API_URL = process.env.POSTS_API_URL + "/blog-post";
+const API_URL =  + "/blog-post";
 const getPostById = createServerFn({ method: "GET" })
   .validator((id: string) => id)
   .handler(async ({ data: id }) => {
-    return apiRequest<BlogPost>(`${API_URL}/${id}`);
+    return apiRequest<BlogPost>(`/blog-post/${id}`, {
+      headers: {
+        'user-id': 'jake',
+      },
+    });
 });
 
 
