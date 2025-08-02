@@ -5,7 +5,7 @@ import {
   HeadContent,
   Link,
   Outlet,
-  ReactNode
+  ReactNode,
 } from "@tanstack/react-router";
 import { createServerFn, Scripts } from "@tanstack/react-start";
 
@@ -21,10 +21,10 @@ const getPostsByAuthorId = createServerFn({ method: "GET" })
   .handler(async ({ data: id }) => {
     return apiRequest<BlogPostPreview[]>(`/blog-post/?author_id=${id}`, {
       headers: {
-        'user-id': 'jake',
+        "user-id": "jake",
       },
     });
-});
+  });
 
 export const Route = createRootRoute({
   head: () => ({
@@ -43,34 +43,41 @@ export const Route = createRootRoute({
   }),
   component: RootComponent,
   loader: ({}) => {
-    return getPostsByAuthorId({ data: MAIN_AUTHOR_ID })
+    return getPostsByAuthorId({ data: MAIN_AUTHOR_ID });
   },
   errorComponent: Error,
 });
 
 function RootComponent() {
   const post_ids = Route.useLoaderData();
-  
+
   return (
     <RootDocument>
-      <div style={{ display: 'flex', minHeight: '100vh' }}>
+      <div style={{ display: "flex", minHeight: "100vh" }}>
         {/* Sidebar */}
-        <div style={{ width: '250px', padding: '20px', borderRight: '1px solid #eaeaea' }}>
+        <div
+          style={{
+            width: "250px",
+            padding: "20px",
+            borderRight: "1px solid #eaeaea",
+          }}
+        >
+          <div style={{ marginTop: "20px" }}>
+            <Link to="/">Home</Link>
+          </div>
           <h3>Posts by {MAIN_AUTHOR_ID}</h3>
           <nav>
             {post_ids.map((post_preview) => (
-              <div key={post_preview.id} style={{ margin: '10px 0' }}>
-                <Link to="/post/$id" params={{ id: post_preview.id }}>{post_preview.title}</Link>
+              <div key={post_preview.id} style={{ margin: "10px 0" }}>
+                <Link to="/post/$id" params={{ id: post_preview.id }}>
+                  {post_preview.title}
+                </Link>
               </div>
             ))}
           </nav>
-          <div style={{ marginTop: '20px' }}>
-            <Link to="/">Home</Link>
-          </div>
         </div>
-        
-        {/* Main content area */}
-        <div style={{ flex: 1, padding: '20px' }}>
+
+        <div style={{ flex: 1, padding: "20px" }}>
           <Outlet />
         </div>
       </div>
@@ -89,5 +96,5 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

@@ -11,19 +11,22 @@ export async function apiRequest<T>(
   });
 
   // Handle responses with no content (like 204 No Content) first
-  if (response.status === 204 || response.headers.get('content-length') === '0') {
+  if (
+    response.status === 204 ||
+    response.headers.get("content-length") === "0"
+  ) {
     // Don't set response status for 204 as TanStack Start doesn't handle it well
     return null as T;
   }
-  
-  setResponseStatus(response.status)
-  
+
+  setResponseStatus(response.status);
+
   // Check if response has JSON content
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
     return response.json();
   }
-  
+
   // For non-JSON responses, try to parse as text
   const text = await response.text();
   if (text) {
@@ -33,6 +36,6 @@ export async function apiRequest<T>(
       return text as T;
     }
   }
-  
+
   return null as T;
 }

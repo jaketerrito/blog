@@ -1,10 +1,13 @@
 import { Error } from "@/components";
 import { apiRequest } from "@/modules/api";
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/react-start';
-import { useState } from "react";
+import {
+  createFileRoute,
+  Link,
+  Outlet,
+  useLoaderData,
+} from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 import Markdown from "react-markdown";
-
 
 export interface BlogPost {
   _id: string;
@@ -16,28 +19,27 @@ export interface BlogPost {
   public: boolean;
 }
 
-const API_URL =  + "/blog-post";
+const API_URL = +"/blog-post";
 const getPostById = createServerFn({ method: "GET" })
   .validator((id: string) => id)
   .handler(async ({ data: id }) => {
     return apiRequest<BlogPost>(`/blog-post/${id}`, {
       headers: {
-        'user-id': 'jake',
+        "user-id": "jake",
       },
     });
-});
+  });
 
-
-export const Route = createFileRoute('/post/$id')({
+export const Route = createFileRoute("/post/$id")({
   component: RouteComponent,
   errorComponent: Error,
   loader: ({ params: { id } }) => {
-    return getPostById({ data: id })
+    return getPostById({ data: id });
   },
-})
+});
 
 function RouteComponent() {
-  const [post, setPost] = useState<BlogPost>(Route.useLoaderData())
+  const post = useLoaderData({ from: "/post/$id" }) as BlogPost;
   return (
     <div>
       <h1>{post.title}</h1>
@@ -45,8 +47,10 @@ function RouteComponent() {
       <p>{post.author_id}</p>
       <p>{post.created_at}</p>
       <p>{post.updated_at}</p>
-      <Outlet/>
-      <Link to="/post/$id/edit" params={{ id: post._id }}>Edit</Link>
+      <Outlet />
+      <Link to="/post/$id/edit" params={{ id: post._id }}>
+        Edit
+      </Link>
     </div>
   );
 }
