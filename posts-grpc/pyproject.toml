@@ -1,0 +1,15 @@
+[project]
+name = "posts-grpc"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "grpcio>=1.74.0",
+]
+
+[dependency-groups]
+dev = [
+    "grpcio-tools>=1.74.0",
+    "ruff>=0.12.9",
+]

@@ -1,0 +1,7 @@
+services:
+  buf:
+    image: bufbuild/buf:1.56
+    volumes:
+      - ./:/app
+      - ../.git:/app/.git
+    working_dir: /app

@@ -1,0 +1,22 @@
+build:
+    docker compose build development
+
+up:
+    docker compose up -d development
+
+down:
+    docker compose down development
+
+logs:
+    docker compose logs -f development
+
+lint:
+	docker compose run --rm development ruff check . --fix
+
+format:
+    docker compose run --rm development ruff format .
+
+protogen:
+    python -m grpc_tools.protoc -Igrpc/example/custom/path=./protos \
+    --python_out=. --grpc_python_out=. \
+    ./protos/posts.proto
