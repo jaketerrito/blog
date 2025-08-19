@@ -6,6 +6,7 @@ import {
   Link,
   Outlet,
   ReactNode,
+  useNavigate,
 } from "@tanstack/react-router";
 import { createServerFn, Scripts } from "@tanstack/react-start";
 
@@ -19,10 +20,14 @@ interface BlogPostPreview {
 const getPostsByAuthorId = createServerFn({ method: "GET" })
   .validator((id: string) => id)
   .handler(async ({ data: id }) => {
-    return apiRequest<BlogPostPreview[]>(`/blog-post/?author_id=${id}`, {
-      headers: {
-        "user-id": "jake",
-      },
+    return apiRequest<BlogPostPreview[]>(`/blog-post/`, {
+    });
+  });
+
+const createPost = createServerFn({ method: "POST" })
+  .handler(async () => {
+    return apiRequest<{ blog_post_id: string }>(`/blog-post/`, {
+      method: "PUT"
     });
   });
 
@@ -50,6 +55,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const post_ids = Route.useLoaderData();
+  const navigate = useNavigate();
 
   return (
     <RootDocument>
@@ -70,11 +76,20 @@ function RootComponent() {
             {post_ids.map((post_preview) => (
               <div key={post_preview.id} style={{ margin: "10px 0" }}>
                 <Link to="/post/$id" params={{ id: post_preview.id }}>
-                  {post_preview.title}
+                  {post_preview.title || "Untitled"}
                 </Link>
               </div>
             ))}
           </nav>
+          <button
+            onClick={async () => {
+              createPost({}).then((res) => {
+                navigate({ to: "/post/$id", params: { id: res.blog_post_id } });
+              });
+            }}
+          >
+            Create Post
+          </button>
         </div>
 
         <div style={{ flex: 1, padding: "20px" }}>

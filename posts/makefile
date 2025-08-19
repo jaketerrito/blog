@@ -14,7 +14,7 @@ logs:
 	docker compose logs -f development
 
 lint:
-	docker compose run --rm development ruff check .
+	docker compose run --rm development ruff check . --fix
 
 format:
 	docker compose run --rm development ruff format .

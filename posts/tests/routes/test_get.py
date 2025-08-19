@@ -1,20 +1,16 @@
 from datetime import datetime, timedelta
-
-import pytest
 from beanie import PydanticObjectId
 from fastapi import status
 from pytest_asyncio import fixture
 
 from src.models import BlogPost
 from src.routes.read import BlogPostPreview
-from tests.conftest import AUTHOR_ID
 
 
 @fixture()
 async def blog_post():
     """Create a test blog post"""
     blog_post = BlogPost(
-        author_id=AUTHOR_ID,
         public=True,
     )
     await blog_post.save()
@@ -22,12 +18,9 @@ async def blog_post():
     await blog_post.delete()
 
 
-@pytest.mark.parametrize("user_id", [AUTHOR_ID, None, "other"])
-def test_exists_public(client, blog_post, user_id):
-    headers = {"user-id": user_id} if user_id is not None else {}
+def test_get_public(client, blog_post):
     response = client.get(
         f"/blog-post/{blog_post.id}",
-        headers=headers,
     )
     assert response.status_code == status.HTTP_200_OK
     assert response.json()["_id"] == str(blog_post.id)
@@ -36,7 +29,6 @@ def test_exists_public(client, blog_post, user_id):
 @fixture()
 async def private_blog_post():
     blog_post = BlogPost(
-        author_id=AUTHOR_ID,
         title="private",
         public=False,
         created_at=datetime.now() - timedelta(days=99),
@@ -46,20 +38,21 @@ async def private_blog_post():
     await blog_post.delete()
 
 
-def test_exists_not_public(client, private_blog_post):
-    # Test author access to private post
+def test_admin_get_not_public(client, private_blog_post):
     response = client.get(
         f"/blog-post/{private_blog_post.id}",
-        headers={"user-id": AUTHOR_ID},
     )
     assert response.status_code == status.HTTP_200_OK
     assert response.json()["_id"] == str(private_blog_post.id)
 
+
+def test_not_admin_get_not_public(client, private_blog_post, admin_status):
+    admin_status.return_value = False
+
     response = client.get(
         f"/blog-post/{private_blog_post.id}",
-        headers={"user-id": "other"},
     )
-    assert response.status_code == status.HTTP_403_FORBIDDEN
+    assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
 def test_not_exist(client):
@@ -67,7 +60,6 @@ def test_not_exist(client):
 
     response = client.get(
         f"/blog-post/{non_existent_id}",
-        headers={"user-id": "other"},
     )
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
@@ -77,7 +69,6 @@ async def public_blog_posts():
     blog_posts = []
     for i in range(10):
         blog_post = BlogPost(
-            author_id=AUTHOR_ID,
             title=str(i),
             public=True,
             created_at=datetime.now() + timedelta(days=i),
@@ -93,10 +84,9 @@ async def public_blog_posts():
 
 
 @fixture
-def test_get_blog_posts_by_author(client, public_blog_posts):
+def test_get_blog_posts(client, public_blog_posts):
     response = client.get(
         "/blog-post",
-        params={"author_id": AUTHOR_ID},
     )
     assert response.status_code == status.HTTP_200_OK
     response_json = response.json()
@@ -107,10 +97,10 @@ def test_get_blog_posts_by_author(client, public_blog_posts):
     )  # sorted so newest is first (ignore private)
 
 
-def test_get_blog_posts_by_author_pagination(client, public_blog_posts):
+def test_get_blog_posts_pagination(client, public_blog_posts):
     response = client.get(
         "/blog-post",
-        params={"author_id": AUTHOR_ID, "skip": len(public_blog_posts) - 1, "limit": 2},
+        params={"skip": len(public_blog_posts) - 1, "limit": 2},
     )
     assert response.status_code == status.HTTP_200_OK
     response_json = response.json()
@@ -120,11 +110,9 @@ def test_get_blog_posts_by_author_pagination(client, public_blog_posts):
     )
 
 
-def test_get_blog_posts_by_author_private(client, public_blog_posts, private_blog_post):
+def test_admin_get_blog_posts_private(client, public_blog_posts, private_blog_post):
     response = client.get(
         "/blog-post",
-        params={"author_id": AUTHOR_ID},
-        headers={"user-id": AUTHOR_ID},
     )
     assert response.status_code == status.HTTP_200_OK
     response_json = response.json()
@@ -132,13 +120,3 @@ def test_get_blog_posts_by_author_private(client, public_blog_posts, private_blo
     assert BlogPostPreview(**response_json[-1]) == BlogPostPreview(
         id=str(private_blog_post.id), title=private_blog_post.title
     )
-
-
-def test_get_blog_posts_by_nonexistent_author(client):
-    response = client.get(
-        "/blog-post",
-        params={"author_id": "NOTREAL"},
-    )
-    assert response.status_code == status.HTTP_200_OK
-    response_json = response.json()
-    assert len(response_json) == 0

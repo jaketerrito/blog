@@ -1,56 +1,46 @@
-from typing import Annotated, List
+from typing import List, Optional
 
 import pymongo
 from beanie import PydanticObjectId
-from fastapi import APIRouter, Header, HTTPException, status
+from fastapi import APIRouter, status
 from pydantic import BaseModel
 
+from src.exceptions import BlogPostNotFoundException
+from src.deps import AdminStatus
 from src.models import BlogPost
 
 router = APIRouter(prefix="/blog-post")
 
-
 @router.get("/{blog_post_id}", status_code=status.HTTP_200_OK)
-async def get_blog_post(
-    blog_post_id: str, user_id: Annotated[str | None, Header()] = None
-) -> BlogPost:
+async def get_blog_post(blog_post_id: str, is_admin: AdminStatus) -> BlogPost:
     try:
-        blog_post_id = PydanticObjectId(blog_post_id)
+        blog_post_id_obj = PydanticObjectId(blog_post_id)
     except Exception:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid blog post id"
-        )
+        raise BlogPostNotFoundException(blog_post_id)
 
-    blog_post = await BlogPost.find_one(BlogPost.id == blog_post_id)
+    blog_post = await BlogPost.find_one(BlogPost.id == blog_post_id_obj)
 
-    if not blog_post:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Blog post not found"
-        )
-
-    # Check if user is authorized to view the post
-    if not (blog_post.public or blog_post.author_id == user_id):
-        raise HTTPException(
-            status_code=403, detail="Not authorized to access this blog post"
-        )
+    # Check if blog post exists
+    # Check if blog post is private and not an admin
+    if not blog_post or (not blog_post.public and not is_admin):
+        raise BlogPostNotFoundException(blog_post_id)
 
     return blog_post
 
 
 class BlogPostPreview(BaseModel):
     id: str
-    title: str
+    title: Optional[str]
 
 
 @router.get("", status_code=status.HTTP_200_OK)
-async def get_blog_posts_by_author(
-    author_id: str,
+async def get_blog_posts(
+    is_admin: AdminStatus,
     skip: int = 0,
     limit: int = 20,
-    user_id: Annotated[str | None, Header()] = None,
 ) -> List[BlogPostPreview]:
-    query = {"author_id": author_id}
-    if user_id != author_id:
+    query = {}
+    if not is_admin:
         query["public"] = True
 
     posts = (

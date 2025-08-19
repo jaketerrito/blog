@@ -13,6 +13,13 @@ import { apiRequest } from "@/modules/api";
 export const Route = createFileRoute("/post/$id/edit")({
   component: RouteComponent,
 });
+const deletePost = createServerFn({ method: "POST" })
+  .validator((data: { id: string }) => data)
+  .handler(async ({ data: { id } }) => {
+    return apiRequest<BlogPost>(`/blog-post/${id}`, {
+      method: "DELETE",
+    });
+  });
 
 const updatePost = createServerFn({ method: "POST" })
   .validator(
@@ -24,7 +31,6 @@ const updatePost = createServerFn({ method: "POST" })
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "user-id": "jake",
       },
       body: JSON.stringify({
         title: title,
@@ -112,6 +118,15 @@ function RouteComponent() {
         <button onClick={handleCancel}>Cancel</button>
         <button onClick={handleSave}>Save</button>
         {errorMessage && <p>{errorMessage}</p>}
+        <button
+          onClick={async () => {
+            deletePost({ data: { id: post._id } });
+            await router.invalidate();
+            navigate({ to: "/" });
+          }}
+        >
+          Delete
+        </button>
       </dialog>
     </div>
   );
