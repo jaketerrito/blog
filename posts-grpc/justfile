@@ -16,5 +16,8 @@ lint:
 format:
     docker compose run --rm development ruff format .
 
+test:
+    docker compose run --rm development uv run pytest
+
 proto:
     docker compose run --rm -v $(pwd)/../proto:/proto -v $(pwd)/src:/app/src development uv run -m grpc_tools.protoc -Iproto=/proto/posts/v1 --python_out=/app/src --pyi_out=/app/src --grpc_python_out=/app/src /proto/posts/v1/posts.proto

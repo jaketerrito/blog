@@ -19,15 +19,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # Copy the project into the image
 ADD . /app
-# Sync the project
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked
 
 
 FROM base AS production
-# Copy the project into the image
 ADD . /app
-# Sync the project
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked
 CMD ["uv", "run", "src/server.py"]
