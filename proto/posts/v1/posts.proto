@@ -5,6 +5,9 @@ package posts.v1;
 service Posts {
     rpc GetPost(GetPostRequest) returns (GetPostResponse) {}
     rpc GetPosts(GetPostsRequest) returns (GetPostsResponse) {}
+    rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {}
+    rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse) {}
+    rpc DeletePost(DeletePostRequest) returns (DeletePostResponse) {}
 }
 
 message GetPostRequest {
@@ -27,5 +30,23 @@ message GetPostResponse {
 message GetPostsRequest {}
 
 message GetPostsResponse {
-    repeated GetPostResponse posts = 1;
+    repeated Post posts = 1;
 }
+
+message CreatePostRequest {}
+
+message CreatePostResponse {
+    string id = 1;
+}
+
+message UpdatePostRequest {
+    Post post = 1;
+}
+
+message UpdatePostResponse {}
+
+message DeletePostRequest {
+    string id = 1;
+}
+
+message DeletePostResponse {}
