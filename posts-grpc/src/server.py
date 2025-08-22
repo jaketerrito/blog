@@ -4,6 +4,9 @@ from service.PostsServicer import PostsServicer
 import proto.posts_pb2_grpc as posts_pb2_grpc
 from repository.PostsRepository import PostsRepository
 
+def wow():
+    return 1
+
 def serve():
     print("In serve() function")
     try:
