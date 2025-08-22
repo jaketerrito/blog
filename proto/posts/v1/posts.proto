@@ -2,7 +2,7 @@ syntax = "proto3";
 package posts.v1;
 
 
-service PostsService {
+service Posts {
     rpc GetPost(GetPostRequest) returns (GetPostResponse) {}
     rpc GetPosts(GetPostsRequest) returns (GetPostsResponse) {}
 }

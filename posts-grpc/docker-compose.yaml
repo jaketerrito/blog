@@ -1,9 +1,17 @@
 services:
   development:
     container_name: posts-grpc
-    build: 
-      context: ./
+    build:
+      context: .
       dockerfile: Dockerfile
-      target: development
-    volumes:
-      - ./:/app
+      target: development  # Changed from production to development
+    ports:
+      - "50051:50051"
+    tty: true
+    stdin_open: true
+    command: ["uv", "run", "python", "src/server.py"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

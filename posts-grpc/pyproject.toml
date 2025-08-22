@@ -6,10 +6,11 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "grpcio>=1.74.0",
+    "protobuf>=6.32.0",
 ]
 
 [dependency-groups]
 dev = [
     "grpcio-tools>=1.74.0",
-    "ruff>=0.12.9",
+    "ruff>=0.12.10",
 ]

@@ -1,7 +1,6 @@
 version: v2
 modules:
-  - path: .
-    name: buf.build/buf-examples/observabilityapi
+  - path: posts
     lint:
       use:
         - STANDARD

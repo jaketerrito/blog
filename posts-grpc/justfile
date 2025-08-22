@@ -16,7 +16,5 @@ lint:
 format:
     docker compose run --rm development ruff format .
 
-protogen:
-    python -m grpc_tools.protoc -Igrpc/example/custom/path=./protos \
-    --python_out=. --grpc_python_out=. \
-    ./protos/posts.proto
+proto:
+    docker compose run --rm -v $(pwd)/../proto:/proto development uv run -m grpc_tools.protoc -Iproto=/proto/posts/v1 --python_out=/app/src --pyi_out=/app/src --grpc_python_out=/app/src /proto/posts/v1/posts.proto
