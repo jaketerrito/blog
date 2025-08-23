@@ -7,6 +7,10 @@ services:
       target: development  # Changed from production to development
     ports:
       - "50051:50051"
+    depends_on:
+      - db
+    environment:
+      DB_URI: mongodb://root:example@db:27017
     tty: true
     stdin_open: true
     command: ["uv", "run", "python", "src/server.py"]
@@ -15,3 +19,13 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+  db:
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - db-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example 
+volumes:
+  db-data:
