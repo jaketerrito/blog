@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'posts-grpc/**'
-      - '.github/workflows/posts-grpc.yml'
+      - '.github/workflows/posts-grpc.yaml'
 
 jobs:
   test:
@@ -29,6 +29,6 @@ jobs:
 
     - name: Get Cover 
       uses: orgoro/coverage@v3.2
-        with:
-            coverageFile: posts-grpc/coverage.xml
-            token: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        coverageFile: posts-grpc/coverage.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
