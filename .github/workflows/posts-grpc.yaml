@@ -16,7 +16,22 @@ jobs:
 
     - name: Checkout repository
       uses: actions/checkout@v3
-      
+
+    - name: Build image
+      run: |
+        cd posts-grpc
+        just build
+    
+    - name: Format check
+      run: |
+        cd posts-grpc
+        just format-check
+
+    - name: Generate proto
+      run: |
+        cd posts-grpc
+        just proto
+
     - name: Lint
       run: |
         cd posts-grpc
