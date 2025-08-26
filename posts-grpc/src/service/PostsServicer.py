@@ -37,9 +37,7 @@ class PostsServicer(posts_pb2_grpc.PostsServicer):
         self, request: GetPostsRequest, context: grpc.ServicerContext
     ) -> GetPostsResponse:
         posts = self.posts_repository.get_posts()
-        return GetPostsResponse(
-            posts=[convert_model_to_proto(post) for post in posts]
-        )
+        return GetPostsResponse(posts=[convert_model_to_proto(post) for post in posts])
 
     def CreatePost(
         self, request: CreatePostRequest, context: grpc.ServicerContext

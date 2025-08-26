@@ -4,6 +4,7 @@ from database.model.post import Post
 from database.connection import init_db
 from util.exceptions import PostNotFoundError
 
+
 class PostsRepository:
     def __init__(self):
         init_db()

@@ -3,10 +3,12 @@ from database.model.post import Post as PostModel
 from proto.posts_pb2 import Post as PostProto
 from google.protobuf.timestamp_pb2 import Timestamp
 
+
 def convert_datetime_to_timestamp(date: datetime) -> Timestamp:
     timestamp = Timestamp()
     timestamp.FromDatetime(date)
     return timestamp
+
 
 def convert_model_to_proto(post_model: PostModel) -> PostProto:
     return PostProto(

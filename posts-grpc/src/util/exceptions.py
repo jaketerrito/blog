@@ -1,4 +1,3 @@
-
 class PostNotFoundError(Exception):
     @staticmethod
     def get_message(id: str):
