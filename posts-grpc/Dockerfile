@@ -21,6 +21,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 COPY . /app
 ENV PATH="/app/.venv/bin:$PATH"
+ENTRYPOINT []
 CMD ["find /app/src/ | entr -r python src/server.py"]
 
 

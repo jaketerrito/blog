@@ -9,14 +9,19 @@ up-db:
 up-server:
     docker compose down db
 
-down:
-    docker compose down development db
+down: down-server down-db
+
+down-server:
+    docker compose down development
+
+down-db:
+    docker compose down db
 
 logs:
     docker compose logs -f development
 
 lint:
-	docker compose run --rm development uv run ruff check .
+	docker compose run --rm development ruff check .
 
 format:
     docker compose run --rm development ruff format .
@@ -25,7 +30,7 @@ format-check:
     docker compose run --rm development ruff format . --check
 
 test: build up-db
-    docker compose run --rm development uv run pytest --cov=src --cov-report=xml:coverage.xml
+    docker compose run --rm development pytest --cov=src --cov-report=xml:coverage.xml
 
 proto:
-    docker compose run --rm -v $(pwd)/../proto:/proto development uv run -m grpc_tools.protoc -Iproto=/proto/posts/v1 --python_out=/app/src --pyi_out=/app/src --grpc_python_out=/app/src /proto/posts/v1/posts.proto
+    docker compose run --rm -v $(pwd)/../proto:/proto development python -m grpc_tools.protoc -Iproto=/proto/posts/v1 --python_out=/app/src --pyi_out=/app/src --grpc_python_out=/app/src /proto/posts/v1/posts.proto

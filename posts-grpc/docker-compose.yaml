@@ -13,7 +13,6 @@ services:
       DB_URI: mongodb://root:example@db:27017
     tty: true
     stdin_open: true
-    command: ["uv", "run", "python", "src/server.py"]
     logging:
       driver: "json-file"
       options:
