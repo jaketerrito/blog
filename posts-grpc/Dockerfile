@@ -11,8 +11,6 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 
 FROM builder as development
-# Install entr for file watching
-RUN apt-get update && apt-get install -y entr
 # Install dev dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
@@ -20,9 +18,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-install-project --only-dev
 
 COPY . /app
-ENV PATH="/app/.venv/bin:$PATH"
-ENTRYPOINT []
-CMD ["find /app/src/ | entr -r python src/server.py"]
+ENTRYPOINT ["uv", "run"]
 
 
 FROM python:3.13-slim-bookworm AS production

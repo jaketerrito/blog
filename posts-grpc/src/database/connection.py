@@ -3,4 +3,5 @@ import os
 
 
 def init_db():
-    connect(os.getenv("DB_URI"))
+    print(os.getenv("DB_URI"))
+    connect(host=os.getenv("DB_URI"))

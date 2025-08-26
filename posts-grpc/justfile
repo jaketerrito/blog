@@ -1,18 +1,18 @@
-build:
+build: down-server
     docker compose build development
 
-up: up-db up-server
+up: up-db build up-server
 
 up-db:
     docker compose up -d db
 
 up-server:
-    docker compose down db
+    docker compose up -d development
 
 down: down-server down-db
 
 down-server:
-    docker compose down development
+    docker compose down development -v
 
 down-db:
     docker compose down db
