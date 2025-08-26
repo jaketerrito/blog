@@ -2,13 +2,7 @@ from datetime import datetime, timezone
 from typing import List, Optional
 from database.model.post import Post
 from database.connection import init_db
-
-
-class PostNotFoundError(Exception):
-    def __init__(self, id: str):
-        self.id = id
-        super().__init__(f"Post {id} not found")
-
+from util.exceptions import PostNotFoundError
 
 class PostsRepository:
     def __init__(self):

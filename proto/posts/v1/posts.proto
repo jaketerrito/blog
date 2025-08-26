@@ -46,7 +46,9 @@ message UpdatePostRequest {
     optional string content = 3;
 }
 
-message UpdatePostResponse {}
+message UpdatePostResponse {
+    Post post = 1;
+}
 
 message DeletePostRequest {
     string id = 1;
