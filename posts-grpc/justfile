@@ -1,8 +1,13 @@
 build:
     docker compose build development
 
-up: build
-    docker compose up development
+up: up-db up-server
+
+up-db:
+    docker compose up -d db
+
+up-server:
+    docker compose down db
 
 down:
     docker compose down development db
@@ -19,7 +24,7 @@ format:
 format-check:
     docker compose run --rm development ruff format . --check
 
-test: build
+test: build up-db
     docker compose run --rm development uv run pytest --cov=src --cov-report=xml:coverage.xml
 
 proto:

@@ -9,8 +9,6 @@ services:
       target: development  # Changed from production to development
     ports:
       - "50051:50051"
-    depends_on:
-      - db
     environment:
       DB_URI: mongodb://root:example@db:27017
     tty: true
