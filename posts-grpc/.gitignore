@@ -1,2 +1,7 @@
 .venv
+.py_cache
+.coverage
+.ruff_cache
+.pytest_cache
 src/proto
+coverage.xml

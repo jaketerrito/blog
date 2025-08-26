@@ -14,11 +14,15 @@ dependencies = [
 dev = [
     "grpcio-tools>=1.74.0",
     "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
     "ruff>=0.12.10",
 ]
 
 [tool.pytest.ini_options]
 addopts = [
     "--import-mode=importlib",
+    "--cov=.",
+    "--cov-report=xml",
 ]
 pythonpath = ["src"]
+

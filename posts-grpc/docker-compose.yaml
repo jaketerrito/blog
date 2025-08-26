@@ -1,6 +1,8 @@
 services:
   development:
     container_name: posts-grpc
+    volumes:
+      - .:/app
     build:
       context: .
       dockerfile: Dockerfile

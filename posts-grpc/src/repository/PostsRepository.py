@@ -3,10 +3,12 @@ from typing import List, Optional
 from database.model.post import Post
 from database.connection import init_db
 
+
 class PostNotFoundError(Exception):
     def __init__(self, id: str):
         self.id = id
         super().__init__(f"Post {id} not found")
+
 
 class PostsRepository:
     def __init__(self):
@@ -20,13 +22,15 @@ class PostsRepository:
 
     def get_posts(self) -> List[Post]:
         return Post.objects().order_by("-created_at")
-    
+
     def create_post(self) -> str:
         post = Post()
         post.save()
         return post.id
 
-    def update_post(self, id: str, title: Optional[str], content: Optional[str]) -> Post:
+    def update_post(
+        self, id: str, title: Optional[str], content: Optional[str]
+    ) -> Post:
         post = Post.objects(id=id).first()
         if post is None:
             raise PostNotFoundError(id)
