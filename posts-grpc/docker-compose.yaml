@@ -3,6 +3,7 @@ services:
     container_name: posts-grpc
     volumes:
       - .:/app
+      - .venv:/app/.venv
     build:
       context: .
       dockerfile: Dockerfile

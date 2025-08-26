@@ -29,7 +29,7 @@ format:
 format-check:
     docker compose run --rm development ruff format . --check
 
-test: build up-db
+test: up-db
     docker compose run --rm development pytest --cov=src --cov-report=xml:coverage.xml
 
 proto:
