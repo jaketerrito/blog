@@ -13,6 +13,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "grpcio-tools>=1.74.0",
+    "mongomock>=4.3.0",
     "py-mon>=2.1.0",
     "pytest>=8.4.1",
     "pytest-cov>=6.2.1",

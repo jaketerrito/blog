@@ -1,13 +1,10 @@
 from datetime import datetime, timezone
 from typing import List, Optional
 from database.model.post import Post
-from database.connection import init_db
 from util.exceptions import PostNotFoundError
 
 
 class PostsRepository:
-    def __init__(self):
-        init_db()
 
     def get_post(self, id: str) -> Post:
         post = Post.objects(id=id).first()
