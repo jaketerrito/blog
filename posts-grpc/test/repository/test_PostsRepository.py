@@ -59,14 +59,13 @@ def test_update_post(posts_repository: PostsRepository):
 
 
 def test_update_post_no_changes(posts_repository: PostsRepository):
-    original_post = Post(title="TEST", content="TEST")
+    yesterday = datetime.now(timezone.utc) - timedelta(days=1)
+    original_post = Post(title="TEST", content="TEST", created_at=yesterday, updated_at=yesterday)
     original_post.save()
     posts_repository.update_post(original_post.id, title="TEST", content="TEST")
     updated_post = Post.objects(id=original_post.id).first()
     assert updated_post.title == "TEST"
     assert updated_post.content == "TEST"
-    print(updated_post.updated_at)
-    print(original_post.updated_at)
     assert updated_post.updated_at.timestamp() > original_post.updated_at.timestamp()
     # Check that the created_at timestamp is the same with rounding errors
     assert (

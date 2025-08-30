@@ -20,11 +20,11 @@ down-db:
 logs:
     docker compose logs -f development
 
-ruf:
+check:
     docker compose run --rm development ruff check .
     docker compose run --rm development ruff format . --check
 
-ruf_fix:
+fix:
     docker compose run --rm development ruff check --fix
     docker compose run --rm development ruff check .
 

@@ -31,7 +31,7 @@ jobs:
     - name: Ruff checks
       run: |
         cd posts-grpc
-        just ruf
+        just check
 
     - name: Test
       run: |
