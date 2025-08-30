@@ -20,7 +20,7 @@ from util.exceptions import PostNotFoundError
 
 # TODO: authorization should have seperate class and not be in the servicer
 # Methods like can_read_post, can_edit_post, can see private posts
-class PostsServicer(posts_pb2_grpc.PostsServicer):
+class PostsServicer(posts_pb2_grpc.PostsServiceServicer):
     def __init__(self, posts_repository: PostsRepository):
         self.posts_repository = posts_repository
 

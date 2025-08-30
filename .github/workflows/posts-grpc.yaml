@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'posts-grpc/**'
+      - 'proto/posts/**'
       - '.github/workflows/posts-grpc.yaml'
 
 jobs:
