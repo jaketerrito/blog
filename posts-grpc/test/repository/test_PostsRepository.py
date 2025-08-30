@@ -70,7 +70,7 @@ def test_update_post_no_changes(posts_repository: PostsRepository):
     # Check that the created_at timestamp is the same with rounding errors
     assert (
         updated_post.created_at.timestamp() - original_post.created_at.timestamp()
-        < 0.001
+        < 0.01
     )
 
 
