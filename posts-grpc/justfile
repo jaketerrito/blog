@@ -28,7 +28,7 @@ ruf_fix:
     docker compose run --rm development ruff check --fix
     docker compose run --rm development ruff check .
 
-test: up-db
+test:
     docker compose run --rm development pytest --cov=src --cov-report=xml:coverage.xml
 
 proto:

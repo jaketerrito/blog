@@ -18,6 +18,5 @@ jobs:
           format: true
           lint: true
           breaking: true
-          breaking-against: .git#branch=main,ref=HEAD~1,subdir=proto
-          paths: proto/**
+          breaking-against: '.git#branch=main,ref=HEAD~1,subdir=proto'
           push: false
