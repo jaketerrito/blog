@@ -2,28 +2,22 @@ name: Proto CI
 
 on:
   push:
+
+name: Buf CI
+on:
+  push:
     paths:
-      - 'proto/**'
-      - '.github/workflows/proto.yaml'
-
+    - 'proto/**'
+    - '.github/workflows/proto.yaml'
+permissions:
+  contents: read
+  pull-requests: write
 jobs:
-  test:
+  buf:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Set up Just
-      uses: extractions/setup-just@v3
-
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-
-    - name: Lint
-      run: |
-        cd proto
-        just lint
-
-    - name: Breaking
-      run: |
-        cd proto
-        just breaking
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-action@v1
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      push: false
