@@ -1,6 +1,6 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import List, Optional
-from database.model.post import Post
+from database.model.post import Post, get_current_time
 from util.exceptions import PostNotFoundError
 
 
@@ -21,7 +21,7 @@ class PostsRepository:
         return post.id
 
     def update_post(
-        self, id: str, title: Optional[str], content: Optional[str]
+        self, id: str, title: Optional[str] = None, content: Optional[str] = None
     ) -> Post:
         post = Post.objects(id=id).first()
         if post is None:
@@ -31,7 +31,6 @@ class PostsRepository:
             post.title = title
         if content is not None:
             post.content = content
-        post.updated_at = datetime.now(timezone.utc)
         post.save()
         return post
 

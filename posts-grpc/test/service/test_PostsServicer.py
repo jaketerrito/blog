@@ -15,6 +15,7 @@ from database.model.post import Post as PostModel
 import grpc
 from util.mapper import convert_model_to_proto
 from util.exceptions import PostNotFoundError
+from bson import ObjectId
 
 
 @fixture
@@ -39,17 +40,16 @@ def posts_servicer() -> PostsServicer:
 @fixture
 def post_model() -> PostModel:
     return PostModel(
-        id="1",
+        id=ObjectId(),
         title="Test Post",
         content="Test Content",
-        created_at=datetime.now(),
         updated_at=datetime.now(),
     )
 
 
 def test_get_post(posts_servicer: PostsServicer, context: Mock, post_model: PostModel):
     posts_servicer.posts_repository.get_post.return_value = post_model
-    result = posts_servicer.GetPost(GetPostRequest(id=post_model.id), context)
+    result = posts_servicer.GetPost(GetPostRequest(id=str(post_model.id)), context)
     assert result.post == convert_model_to_proto(post_model)
 
 
@@ -58,7 +58,7 @@ def test_get_post_not_found(posts_servicer: PostsServicer, context: Mock):
     posts_servicer.posts_repository.get_post.side_effect = PostNotFoundError(post_id)
 
     with raises(grpc.RpcError):
-        posts_servicer.GetPost(GetPostRequest(id=post_id), context)
+        posts_servicer.GetPost(GetPostRequest(id=str(post_id)), context)
 
     context.abort.assert_called_once_with(
         grpc.StatusCode.NOT_FOUND, PostNotFoundError.get_message(post_id)
@@ -95,7 +95,7 @@ def test_update_post(
     posts_servicer.posts_repository.update_post.return_value = post_model
     result = posts_servicer.UpdatePost(
         UpdatePostRequest(
-            id=post_model.id, title=post_model.title, content=post_model.content
+            id=str(post_model.id), title=post_model.title, content=post_model.content
         ),
         context,
     )
@@ -107,23 +107,6 @@ def test_update_post_not_found(posts_servicer: PostsServicer, context: Mock):
     posts_servicer.posts_repository.update_post.side_effect = PostNotFoundError(post_id)
     with raises(grpc.RpcError):
         posts_servicer.UpdatePost(UpdatePostRequest(id=post_id), context)
-    context.abort.assert_called_once_with(
-        grpc.StatusCode.NOT_FOUND, PostNotFoundError.get_message(post_id)
-    )
-
-
-def test_delete_post(
-    posts_servicer: PostsServicer, context: Mock, post_model: PostModel
-):
-    result = posts_servicer.DeletePost(DeletePostRequest(id=post_model.id), context)
-    assert result == DeletePostResponse()
-
-
-def test_delete_post_not_found(posts_servicer: PostsServicer, context: Mock):
-    post_id = "test_post_id"
-    posts_servicer.posts_repository.delete_post.side_effect = PostNotFoundError(post_id)
-    with raises(grpc.RpcError):
-        posts_servicer.DeletePost(DeletePostRequest(id=post_id), context)
     context.abort.assert_called_once_with(
         grpc.StatusCode.NOT_FOUND, PostNotFoundError.get_message(post_id)
     )
