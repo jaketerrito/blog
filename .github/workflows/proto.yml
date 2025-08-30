@@ -1,0 +1,29 @@
+name: Proto CI
+
+on:
+  push:
+    paths:
+      - 'proto/**'
+      - '.github/workflows/proto.yaml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Set up Just
+      uses: extractions/setup-just@v3
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+
+    - name: Lint
+      run: |
+        cd proto
+        just lint
+
+    - name: Breaking
+      run: |
+        cd proto
+        just breaking

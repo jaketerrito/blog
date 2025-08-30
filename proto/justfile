@@ -3,7 +3,3 @@ lint:
 
 breaking:
     docker compose run --rm buf breaking --against .git#branch=main,ref=HEAD~1,subdir=proto
-    
-generate:
-    docker compose run --rm buf generate
-
