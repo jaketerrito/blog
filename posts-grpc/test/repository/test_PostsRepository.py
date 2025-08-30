@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta, timezone
-import time
 from pytest import fixture
 from repository.PostsRepository import PostsRepository
 from util.exceptions import PostNotFoundError
@@ -7,9 +6,11 @@ from pytest import raises
 from bson import ObjectId
 from database.model.post import Post
 
+
 @fixture
 def posts_repository() -> PostsRepository:
     return PostsRepository()
+
 
 def test_get_post(posts_repository: PostsRepository):
     post = Post(title="TEST", content="TEST")
@@ -18,12 +19,18 @@ def test_get_post(posts_repository: PostsRepository):
     assert post.title == "TEST"
     assert post.content == "TEST"
 
+
 def test_get_post_not_found(posts_repository: PostsRepository):
     with raises(PostNotFoundError):
         posts_repository.get_post(ObjectId())
 
+
 def test_get_posts(posts_repository: PostsRepository):
-    post1 = Post(title="TEST1", content="TEST1", created_at=datetime.now(timezone.utc) - timedelta(days=1))
+    post1 = Post(
+        title="TEST1",
+        content="TEST1",
+        created_at=datetime.now(timezone.utc) - timedelta(days=1),
+    )
     post1.save()
     post2 = Post(title="TEST2", content="TEST2")
     post2.save()
@@ -41,6 +48,7 @@ def test_create_post(posts_repository: PostsRepository):
     post = Post.objects(id=post_id).first()
     assert post is not None
 
+
 def test_update_post(posts_repository: PostsRepository):
     post = Post(title="TEST", content="TEST")
     post.save()
@@ -48,6 +56,7 @@ def test_update_post(posts_repository: PostsRepository):
     post = Post.objects(id=post.id).first()
     assert post.title == "TEST2"
     assert post.content == "TEST2"
+
 
 def test_update_post_no_changes(posts_repository: PostsRepository):
     original_post = Post(title="TEST", content="TEST")
@@ -60,7 +69,10 @@ def test_update_post_no_changes(posts_repository: PostsRepository):
     print(original_post.updated_at)
     assert updated_post.updated_at.timestamp() > original_post.updated_at.timestamp()
     # Check that the created_at timestamp is the same with rounding errors
-    assert updated_post.created_at.timestamp() - original_post.created_at.timestamp() < 0.001
+    assert (
+        updated_post.created_at.timestamp() - original_post.created_at.timestamp()
+        < 0.001
+    )
 
 
 def test_update_post_not_found(posts_repository: PostsRepository):

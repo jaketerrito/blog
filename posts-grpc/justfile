@@ -20,14 +20,13 @@ down-db:
 logs:
     docker compose logs -f development
 
-lint:
-	docker compose run --rm development ruff check .
-
-format:
-    docker compose run --rm development ruff format .
-
-format-check:
+ruf:
+    docker compose run --rm development ruff check .
     docker compose run --rm development ruff format . --check
+
+ruf_fix:
+    docker compose run --rm development ruff check --fix
+    docker compose run --rm development ruff check .
 
 test: up-db
     docker compose run --rm development pytest --cov=src --cov-report=xml:coverage.xml

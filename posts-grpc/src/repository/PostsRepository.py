@@ -1,11 +1,9 @@
-from datetime import datetime
 from typing import List, Optional
-from database.model.post import Post, get_current_time
+from database.model.post import Post
 from util.exceptions import PostNotFoundError
 
 
 class PostsRepository:
-
     def get_post(self, id: str) -> Post:
         post = Post.objects(id=id).first()
         if post is None:

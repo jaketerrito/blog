@@ -1,10 +1,10 @@
 from datetime import datetime, timezone
 from mongoengine import Document, StringField, DateTimeField
-from bson import ObjectId
 
 
 def get_current_time() -> datetime:
     return datetime.now(timezone.utc)
+
 
 class Post(Document):
     title = StringField(required=True, default="")

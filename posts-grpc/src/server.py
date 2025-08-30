@@ -5,6 +5,7 @@ import proto.posts_pb2_grpc as posts_pb2_grpc
 from repository.PostsRepository import PostsRepository
 from database.connection import init_db_connection
 
+
 def serve():
     init_db_connection()
     print("In serve() function")

@@ -8,8 +8,6 @@ from proto.posts_pb2 import (
     GetPostsRequest,
     CreatePostRequest,
     UpdatePostRequest,
-    DeletePostRequest,
-    DeletePostResponse,
 )
 from database.model.post import Post as PostModel
 import grpc

@@ -21,21 +21,16 @@ jobs:
       run: |
         cd posts-grpc
         just build
-    
-    - name: Format check
-      run: |
-        cd posts-grpc
-        just format-check
 
     - name: Generate proto
       run: |
         cd posts-grpc
         just proto
 
-    - name: Lint
+    - name: Ruff checks
       run: |
         cd posts-grpc
-        just lint
+        just ruf
 
     - name: Test
       run: |
