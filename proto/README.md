@@ -4,4 +4,4 @@
 
 # Commands
 - `buf lint`
-- `buf breaking` 
+- `buf breaking`
