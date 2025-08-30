@@ -1,6 +1,6 @@
 import grpc
-from proto.posts_pb2 import GetPostRequest
-import proto.posts_pb2_grpc as posts_pb2_grpc
+from src.proto.posts_pb2 import GetPostRequest
+import src.proto.posts_pb2_grpc as posts_pb2_grpc
 
 if __name__ == "__main__":
     channel = grpc.insecure_channel("localhost:50051")

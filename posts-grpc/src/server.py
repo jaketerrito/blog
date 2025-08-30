@@ -1,9 +1,9 @@
 from concurrent import futures
 import grpc
-from service.PostsServicer import PostsServicer
-import proto.posts_pb2_grpc as posts_pb2_grpc
-from repository.PostsRepository import PostsRepository
-from database.connection import init_db_connection
+from src.service.PostsServicer import PostsServicer
+import src.proto.posts_pb2_grpc as posts_pb2_grpc
+from src.repository.PostsRepository import PostsRepository
+from src.database.connection import init_db_connection
 
 
 def serve():

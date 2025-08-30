@@ -26,5 +26,5 @@ addopts = [
     "--cov=.",
     "--cov-report=xml",
 ]
-pythonpath = ["src"]
+pythonpath = ["."]
 

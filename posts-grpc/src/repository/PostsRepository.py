@@ -1,6 +1,6 @@
 from typing import List, Optional
-from database.model.post import Post
-from util.exceptions import PostNotFoundError
+from src.database.model.post import Post
+from src.util.exceptions import PostNotFoundError
 
 
 class PostsRepository:

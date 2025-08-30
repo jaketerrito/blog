@@ -1,5 +1,5 @@
-from util.mapper import convert_model_to_proto
-from database.model.post import Post
+from src.util.mapper import convert_model_to_proto
+from src.database.model.post import Post
 from bson import ObjectId
 
 

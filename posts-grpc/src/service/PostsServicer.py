@@ -1,4 +1,4 @@
-from proto.posts_pb2 import (
+from src.proto.posts_pb2 import (
     CreatePostRequest,
     CreatePostResponse,
     DeletePostRequest,
@@ -11,11 +11,11 @@ from proto.posts_pb2 import (
     UpdatePostResponse,
 )
 
-from util.mapper import convert_model_to_proto
+from src.util.mapper import convert_model_to_proto
 import grpc
-import proto.posts_pb2_grpc as posts_pb2_grpc
-from repository.PostsRepository import PostsRepository
-from util.exceptions import PostNotFoundError
+import src.proto.posts_pb2_grpc as posts_pb2_grpc
+from src.repository.PostsRepository import PostsRepository
+from src.util.exceptions import PostNotFoundError
 
 
 # TODO: authorization should have seperate class and not be in the servicer

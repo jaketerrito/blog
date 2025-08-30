@@ -1,18 +1,18 @@
 from datetime import datetime
 from unittest.mock import Mock
 from pytest import fixture, raises
-from service.PostsServicer import PostsServicer
-from repository.PostsRepository import PostsRepository
-from proto.posts_pb2 import (
+from src.service.PostsServicer import PostsServicer
+from src.repository.PostsRepository import PostsRepository
+from src.proto.posts_pb2 import (
     GetPostRequest,
     GetPostsRequest,
     CreatePostRequest,
     UpdatePostRequest,
 )
-from database.model.post import Post as PostModel
+from src.database.model.post import Post as PostModel
 import grpc
-from util.mapper import convert_model_to_proto
-from util.exceptions import PostNotFoundError
+from src.util.mapper import convert_model_to_proto
+from src.util.exceptions import PostNotFoundError
 from bson import ObjectId
 
 
@@ -52,7 +52,7 @@ def test_get_post(posts_servicer: PostsServicer, context: Mock, post_model: Post
 
 
 def test_get_post_not_found(posts_servicer: PostsServicer, context: Mock):
-    post_id = "test_post_id"
+    post_id = ObjectId()
     posts_servicer.posts_repository.get_post.side_effect = PostNotFoundError(post_id)
 
     with raises(grpc.RpcError):
@@ -81,7 +81,7 @@ def test_get_no_posts(
 def test_create_post(
     posts_servicer: PostsServicer, context: Mock, post_model: PostModel
 ):
-    id = "test_post_id"
+    id = str(ObjectId())
     posts_servicer.posts_repository.create_post.return_value = id
     result = posts_servicer.CreatePost(CreatePostRequest(), context)
     assert result.id == id
@@ -101,7 +101,7 @@ def test_update_post(
 
 
 def test_update_post_not_found(posts_servicer: PostsServicer, context: Mock):
-    post_id = "test_post_id"
+    post_id = str(ObjectId())
     posts_servicer.posts_repository.update_post.side_effect = PostNotFoundError(post_id)
     with raises(grpc.RpcError):
         posts_servicer.UpdatePost(UpdatePostRequest(id=post_id), context)

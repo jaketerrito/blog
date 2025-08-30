@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta, timezone
 from pytest import fixture
-from repository.PostsRepository import PostsRepository
-from util.exceptions import PostNotFoundError
+from src.repository.PostsRepository import PostsRepository
+from src.util.exceptions import PostNotFoundError
 from pytest import raises
 from bson import ObjectId
-from database.model.post import Post
+from src.database.model.post import Post
 
 
 @fixture

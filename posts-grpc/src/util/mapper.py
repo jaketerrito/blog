@@ -1,6 +1,6 @@
 from datetime import datetime
-from database.model.post import Post as PostModel
-from proto.posts_pb2 import Post as PostProto
+from src.database.model.post import Post as PostModel
+from src.proto.posts_pb2 import Post as PostProto
 from google.protobuf.timestamp_pb2 import Timestamp
 
 
