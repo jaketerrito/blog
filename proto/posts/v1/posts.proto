@@ -3,7 +3,7 @@ package posts.v1;
 import "google/protobuf/timestamp.proto";
 
 
-service Posts {
+service PostsService {
     rpc GetPost(GetPostRequest) returns (GetPostResponse) {}
     rpc GetPosts(GetPostsRequest) returns (GetPostsResponse) {}
     rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {}
