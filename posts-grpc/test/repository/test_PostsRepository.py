@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, timezone
 import time
 from pytest import fixture
 from repository.PostsRepository import PostsRepository
@@ -22,7 +23,7 @@ def test_get_post_not_found(posts_repository: PostsRepository):
         posts_repository.get_post(ObjectId())
 
 def test_get_posts(posts_repository: PostsRepository):
-    post1 = Post(title="TEST1", content="TEST1")
+    post1 = Post(title="TEST1", content="TEST1", created_at=datetime.now(timezone.utc) - timedelta(days=1))
     post1.save()
     post2 = Post(title="TEST2", content="TEST2")
     post2.save()
