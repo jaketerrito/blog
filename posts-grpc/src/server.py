@@ -11,7 +11,7 @@ def serve():
     print("In serve() function")
     try:
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-        posts_pb2_grpc.add_PostsServicer_to_server(
+        posts_pb2_grpc.add_PostsServiceServicer_to_server(
             PostsServicer(PostsRepository()), server
         )
         server.add_insecure_port("[::]:50051")

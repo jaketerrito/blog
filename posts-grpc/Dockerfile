@@ -17,6 +17,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-install-project --only-dev
 
+ENV PYTHONPATH=/app
 COPY . /app
 ENTRYPOINT ["uv", "run"]
 
@@ -31,4 +32,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Copy in source
 COPY --chown=app:app . /app
 
-CMD ["python", "src/server.py"]
+CMD ["python", "-m", "src/server.py"]
