@@ -26,7 +26,7 @@ check:
 
 fix:
     docker compose run --rm development ruff check --fix
-    docker compose run --rm development ruff check .
+    docker compose run --rm development ruff format .
 
 test:
     docker compose run --rm development pytest --cov=src --cov-report=xml:coverage.xml

@@ -60,7 +60,9 @@ def test_update_post(posts_repository: PostsRepository):
 
 def test_update_post_no_changes(posts_repository: PostsRepository):
     yesterday = datetime.now(timezone.utc) - timedelta(days=1)
-    original_post = Post(title="TEST", content="TEST", created_at=yesterday, updated_at=yesterday)
+    original_post = Post(
+        title="TEST", content="TEST", created_at=yesterday, updated_at=yesterday
+    )
     original_post.save()
     posts_repository.update_post(original_post.id, title="TEST", content="TEST")
     updated_post = Post.objects(id=original_post.id).first()
