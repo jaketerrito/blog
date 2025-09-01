@@ -1,45 +1,36 @@
-build: down-server
+build:
     docker compose build development
 
-up: up-db build up-server up-grpcui
+# Run posts service containers
+up: build
+    docker compose up -d
 
-up-db:
-    docker compose up -d db
+# Stop posts service containers
+down:
+    docker compose down
 
-
-up-grpcui:
-    docker compose up -d grpcui
-
-up-server:
-    docker compose up -d development
-
-down: down-server down-db down-grpcui
-
-down-server:
-    docker compose down development -v
-
-down-db:
-    docker compose down db
-
-down-grpcui:
-    docker compose down grpcui
-
+# Output logs from all containers
 logs:
     docker compose logs -f
 
-logs-severr:
+# Output logs from server container
+logs-server:
     docker compose logs -f development
 
+# Check linting errors
 check:
     docker compose run --rm development ruff check .
     docker compose run --rm development ruff format . --check
 
+# Fix linting errors
 fix:
     docker compose run --rm development ruff check --fix
     docker compose run --rm development ruff format .
 
+# Run tests
 test:
     docker compose run --rm development pytest --cov=src --cov-report=xml:coverage.xml
 
+# Generate proto client
 proto:
     docker compose run --rm -v $(pwd)/../proto:/proto development python -m grpc_tools.protoc -Isrc/proto=/proto/posts/v1 --python_out=/app --pyi_out=/app --grpc_python_out=/app /proto/posts/v1/posts.proto

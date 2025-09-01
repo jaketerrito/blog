@@ -6,7 +6,10 @@
 
 https://realpython.com/python-microservices-grpc/#best-practices
 
-simple test
-uv run src/server.py
-uv run src/client.py
+# Local Development
+All commands run through docker compose and just
+`just --list`
 
+# Debugging
+## [grpcui](https://github.com/fullstorydev/grpcui)
+This runs as a sidecar to the posts service and exposes ui for testing grpc methods.
