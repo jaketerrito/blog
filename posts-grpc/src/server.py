@@ -2,18 +2,32 @@ from concurrent import futures
 import grpc
 from src.service.PostsServicer import PostsServicer
 import src.proto.posts_pb2_grpc as posts_pb2_grpc
+
 from src.repository.PostsRepository import PostsRepository
 from src.database.connection import init_db_connection
+from src.interceptor.ErrorLogger import ErrorLogger
+from grpc_reflection.v1alpha import reflection
+from src.proto.posts_pb2 import DESCRIPTOR
 
 
 def serve():
     init_db_connection()
     print("In serve() function")
     try:
-        server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+        server = grpc.server(
+            futures.ThreadPoolExecutor(max_workers=10), interceptors=[ErrorLogger()]
+        )
         posts_pb2_grpc.add_PostsServiceServicer_to_server(
             PostsServicer(PostsRepository()), server
         )
+
+        # Reflection allows grpcui to discover methods, exposing this on internet not good idea
+        SERVICE_NAMES = (
+            DESCRIPTOR.services_by_name["PostsService"].full_name,
+            reflection.SERVICE_NAME,
+        )
+        reflection.enable_server_reflection(SERVICE_NAMES, server)
+
         server.add_insecure_port("[::]:50051")
         print("Server started")
 

@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta, timezone
+import time
+
 from pytest import fixture
 from src.repository.PostsRepository import PostsRepository
 from src.util.exceptions import PostNotFoundError
@@ -59,20 +61,18 @@ def test_update_post(posts_repository: PostsRepository):
 
 
 def test_update_post_no_changes(posts_repository: PostsRepository):
-    yesterday = datetime.now(timezone.utc) - timedelta(days=1)
-    original_post = Post(
-        title="TEST", content="TEST", created_at=yesterday, updated_at=yesterday
-    )
+    original_post = Post(title="TEST", content="TEST")
     original_post.save()
+    time.sleep(0.001)  # Sleep for 1 millisecond
+
     posts_repository.update_post(original_post.id, title="TEST", content="TEST")
     updated_post = Post.objects(id=original_post.id).first()
     assert updated_post.title == "TEST"
     assert updated_post.content == "TEST"
     assert updated_post.updated_at.timestamp() > original_post.updated_at.timestamp()
     # Check that the created_at timestamp is the same with rounding errors
-    assert (
-        updated_post.created_at.timestamp() - original_post.created_at.timestamp()
-        < 0.01
+    assert int(updated_post.created_at.timestamp()) == int(
+        original_post.created_at.timestamp()
     )
 
 

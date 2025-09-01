@@ -1,15 +1,19 @@
 build: down-server
     docker compose build development
 
-up: up-db build up-server
+up: up-db build up-server up-grpcui
 
 up-db:
     docker compose up -d db
 
+
+up-grpcui:
+    docker compose up -d grpcui
+
 up-server:
     docker compose up -d development
 
-down: down-server down-db
+down: down-server down-db down-grpcui
 
 down-server:
     docker compose down development -v
@@ -17,7 +21,13 @@ down-server:
 down-db:
     docker compose down db
 
+down-grpcui:
+    docker compose down grpcui
+
 logs:
+    docker compose logs -f
+
+logs-severr:
     docker compose logs -f development
 
 check:

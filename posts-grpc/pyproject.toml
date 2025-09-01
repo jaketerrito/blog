@@ -5,7 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "grpc-interceptor>=0.15.4",
     "grpcio>=1.74.0",
+    "grpcio-reflection>=1.74.0",
     "mongoengine>=0.29.1",
     "protobuf>=6.32.0",
 ]

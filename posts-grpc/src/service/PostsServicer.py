@@ -48,10 +48,10 @@ class PostsServicer(posts_pb2_grpc.PostsServiceServicer):
     def UpdatePost(
         self, request: UpdatePostRequest, context: grpc.ServicerContext
     ) -> UpdatePostResponse:
+        title = request.title if request.HasField("title") else None
+        content = request.content if request.HasField("content") else None
         try:
-            post = self.posts_repository.update_post(
-                request.id, request.title, request.content
-            )
+            post = self.posts_repository.update_post(request.id, title, content)
             return UpdatePostResponse(post=convert_model_to_proto(post))
         except PostNotFoundError as e:
             context.abort(grpc.StatusCode.NOT_FOUND, str(e))

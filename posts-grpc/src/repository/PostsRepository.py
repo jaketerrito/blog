@@ -2,6 +2,10 @@ from typing import List, Optional
 from src.database.model.post import Post
 from src.util.exceptions import PostNotFoundError
 
+from logging import getLogger
+
+logger = getLogger(__name__)
+
 
 class PostsRepository:
     def get_post(self, id: str) -> Post:
@@ -16,7 +20,7 @@ class PostsRepository:
     def create_post(self) -> str:
         post = Post()
         post.save()
-        return post.id
+        return str(post.id)
 
     def update_post(
         self, id: str, title: Optional[str] = None, content: Optional[str] = None
@@ -24,7 +28,6 @@ class PostsRepository:
         post = Post.objects(id=id).first()
         if post is None:
             raise PostNotFoundError(id)
-
         if title is not None:
             post.title = title
         if content is not None:

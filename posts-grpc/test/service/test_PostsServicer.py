@@ -108,3 +108,16 @@ def test_update_post_not_found(posts_servicer: PostsServicer, context: Mock):
     context.abort.assert_called_once_with(
         grpc.StatusCode.NOT_FOUND, PostNotFoundError.get_message(post_id)
     )
+
+
+def test_update_post_no_changes(
+    posts_servicer: PostsServicer, context: Mock, post_model: PostModel
+):
+    posts_servicer.posts_repository.update_post.return_value = post_model
+    posts_servicer.UpdatePost(
+        UpdatePostRequest(id=str(post_model.id)),
+        context,
+    )
+    posts_servicer.posts_repository.update_post.assert_called_once_with(
+        str(post_model.id), None, None
+    )
