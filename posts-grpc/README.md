@@ -13,3 +13,4 @@ All commands run through docker compose and just
 # Debugging
 ## [grpcui](https://github.com/fullstorydev/grpcui)
 This runs as a sidecar to the posts service and exposes ui for testing grpc methods.
+Accessible at `localhost:8081`
