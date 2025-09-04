@@ -16,6 +16,9 @@
   "dependencies": {
     "@tanstack/react-router": "^1.131.32",
     "@tanstack/react-start": "^1.131.32",
+    "long": "^5.3.2",
+    "nice-grpc": "^2.1.12",
+    "protobufjs": "^7.5.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "vite": "^7.1.4"
@@ -28,7 +31,9 @@
     "eslint": "^9.34.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.3.0",
+    "grpc-tools": "^1.13.0",
     "jiti": "^2.5.1",
+    "ts-proto": "^2.7.7",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.42.0",
     "vite-tsconfig-paths": "^5.1.4"
