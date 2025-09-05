@@ -5,6 +5,7 @@ import {
   createRootRoute,
   HeadContent,
   Scripts,
+  Link,
 } from "@tanstack/react-router";
 
 export const Route = createRootRoute({
@@ -28,6 +29,8 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
+      <Link to="/">Home</Link> <br />
+      <a href="https://google.com">Login</a> 
       <Outlet />
     </RootDocument>
   );

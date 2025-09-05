@@ -1,15 +1,15 @@
-from src.util.mapper import convert_model_to_proto
+from src.util.mapper import post_model_to_post_proto, post_model_to_post_preview_proto
 from src.database.model.post import Post
 from bson import ObjectId
 
 
-def test_convert_model_to_proto():
+def test_post_model_to_post_proto():
     post_model = Post(
         id=ObjectId(),
         title="Test Post",
         content="Test Content",
     )
-    proto_post = convert_model_to_proto(post_model)
+    proto_post = post_model_to_post_proto(post_model)
     assert proto_post.id == str(post_model.id)
     assert proto_post.title == post_model.title
     assert proto_post.content == post_model.content
@@ -21,3 +21,14 @@ def test_convert_model_to_proto():
         proto_post.updated_at.ToDatetime().timestamp()
         == post_model.updated_at.timestamp()
     )
+
+
+def test_post_model_to_post_preview_proto():
+    post_model = Post(
+        id=ObjectId(),
+        title="Test Post",
+        content="Test Content",
+    )
+    proto_post = post_model_to_post_preview_proto(post_model)
+    assert proto_post.id == str(post_model.id)
+    assert proto_post.title == post_model.title

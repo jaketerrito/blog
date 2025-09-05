@@ -5,13 +5,13 @@ from src.service.PostsServicer import PostsServicer
 from src.repository.PostsRepository import PostsRepository
 from src.proto.posts_pb2 import (
     GetPostRequest,
-    GetPostsRequest,
+    GetPostPreviewsRequest,
     CreatePostRequest,
     UpdatePostRequest,
 )
 from src.database.model.post import Post as PostModel
 import grpc
-from src.util.mapper import convert_model_to_proto
+from src.util.mapper import post_model_to_post_preview_proto, post_model_to_post_proto
 from src.util.exceptions import PostNotFoundError
 from bson import ObjectId
 
@@ -48,7 +48,7 @@ def post_model() -> PostModel:
 def test_get_post(posts_servicer: PostsServicer, context: Mock, post_model: PostModel):
     posts_servicer.posts_repository.get_post.return_value = post_model
     result = posts_servicer.GetPost(GetPostRequest(id=str(post_model.id)), context)
-    assert result.post == convert_model_to_proto(post_model)
+    assert result.post == post_model_to_post_proto(post_model)
 
 
 def test_get_post_not_found(posts_servicer: PostsServicer, context: Mock):
@@ -63,19 +63,21 @@ def test_get_post_not_found(posts_servicer: PostsServicer, context: Mock):
     )
 
 
-def test_get_posts(posts_servicer: PostsServicer, context: Mock, post_model: PostModel):
+def test_get_post_previews(
+    posts_servicer: PostsServicer, context: Mock, post_model: PostModel
+):
     posts_servicer.posts_repository.get_posts.return_value = [post_model]
-    result = posts_servicer.GetPosts(GetPostsRequest(), context)
-    assert len(result.posts) == 1
-    assert result.posts[0] == convert_model_to_proto(post_model)
+    result = posts_servicer.GetPostPreviews(GetPostPreviewsRequest(), context)
+    assert len(result.previews) == 1
+    assert result.previews[0] == post_model_to_post_preview_proto(post_model)
 
 
-def test_get_no_posts(
+def test_get_no_post_previews(
     posts_servicer: PostsServicer, context: Mock, post_model: PostModel
 ):
     posts_servicer.posts_repository.get_posts.return_value = []
-    result = posts_servicer.GetPosts(GetPostsRequest(), context)
-    assert len(result.posts) == 0
+    result = posts_servicer.GetPostPreviews(GetPostPreviewsRequest(), context)
+    assert len(result.previews) == 0
 
 
 def test_create_post(
@@ -97,7 +99,7 @@ def test_update_post(
         ),
         context,
     )
-    assert result.post == convert_model_to_proto(post_model)
+    assert result.post == post_model_to_post_proto(post_model)
 
 
 def test_update_post_not_found(posts_servicer: PostsServicer, context: Mock):

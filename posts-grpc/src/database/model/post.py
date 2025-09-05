@@ -7,8 +7,8 @@ def get_current_time() -> datetime:
 
 
 class Post(Document):
-    title = StringField(required=True, default="")
-    content = StringField(required=True, default="")
+    title = StringField(required=False)
+    content = StringField(required=False)
     created_at = DateTimeField(required=True, default=get_current_time)
     updated_at = DateTimeField(required=True, default=get_current_time)
 

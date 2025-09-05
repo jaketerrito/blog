@@ -5,7 +5,7 @@ import "google/protobuf/timestamp.proto";
 
 service PostsService {
     rpc GetPost(GetPostRequest) returns (GetPostResponse) {}
-    rpc GetPosts(GetPostsRequest) returns (GetPostsResponse) {}
+    rpc GetPostPreviews(GetPostPreviewsRequest) returns (GetPostPreviewsResponse) {}
     rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {}
     rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse) {}
     rpc DeletePost(DeletePostRequest) returns (DeletePostResponse) {}
@@ -27,11 +27,15 @@ message GetPostResponse {
     Post post = 1;
 }
 
+message PostPreview {
+    string id = 1;
+    string title = 2;
+}
 
-message GetPostsRequest {}
+message GetPostPreviewsRequest {}
 
-message GetPostsResponse {
-    repeated Post posts = 1;
+message GetPostPreviewsResponse {
+    repeated PostPreview previews = 1;
 }
 
 message CreatePostRequest {}
