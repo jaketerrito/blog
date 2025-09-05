@@ -60,17 +60,18 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: ghcr.io/${{ github.repository_owner }}/posts
-        tags: |
-          type=ref,event=branch
-          type=ref,event=tag
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=semver,pattern={{major}}
-          type=sha,format=short
-          type=raw,value=latest,enable={{is_default_branch}}
-          label=org.opencontainers.image.source=https://github.com/jaketerrito/blog/posts-grpc
-          label=org.opencontainers.image.url=https://github.com/jaketerrito/blog/posts-grpc
+         images: ghcr.io/${{ github.repository_owner }}/posts
+         tags: |
+           type=ref,event=branch
+           type=ref,event=tag
+           type=semver,pattern={{version}}
+           type=semver,pattern={{major}}.{{minor}}
+           type=semver,pattern={{major}}
+           type=sha,format=short
+           type=raw,value=latest,enable={{is_default_branch}}
+         labels: |
+           org.opencontainers.image.source=https://github.com/jaketerrito/blog/posts-grpc
+           org.opencontainers.image.url=https://github.com/jaketerrito/blog/posts-grpc
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
