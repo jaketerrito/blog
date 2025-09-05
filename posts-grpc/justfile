@@ -34,4 +34,4 @@ test: build
 
 # Generate proto client
 proto: build
-    docker run --rm -v $(pwd)/../proto:/proto posts-grpc-development python -m grpc_tools.protoc -Isrc/proto=/proto/posts/v1 --python_out=/app --pyi_out=/app --grpc_python_out=/app /proto/posts/v1/posts.proto
+    docker run --rm -v $(pwd)/../proto:/proto -v $(pwd):/app posts-grpc-development python -m grpc_tools.protoc -Isrc/proto=/proto/posts/v1 --python_out=/app --pyi_out=/app --grpc_python_out=/app /proto/posts/v1/posts.proto
