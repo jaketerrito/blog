@@ -19,19 +19,19 @@ logs-server:
     docker compose logs -f development
 
 # Check linting errors
-check: build
-    docker run --rm posts-grpc-development ruff check .
-    docker run --rm posts-grpc-development ruff format . --check
+check:
+    docker compose run --no-deps --rm development ruff check .
+    docker compose run --no-deps --rm development ruff format . --check
 
 # Fix linting errors
-fix: build
-    docker run --rm posts-grpc-development ruff check --fix
-    docker run --rm posts-grpc-development ruff format .
+fix:
+    docker compose run --no-deps --rm development ruff check --fix
+    docker compose run --no-deps --rm development ruff format .
 
 # Run tests
-test: build
-    docker run --rm posts-grpc-development pytest --cov=src --cov-report=xml:coverage.xml
+test:
+    docker compose run --no-deps --rm development pytest --cov=src --cov-report=xml:coverage.xml
 
 # Generate proto client
-proto: build
-    docker run --rm -v $(pwd)/../proto:/proto -v $(pwd):/app posts-grpc-development python -m grpc_tools.protoc -Isrc/proto=/proto/posts/v1 --python_out=/app --pyi_out=/app --grpc_python_out=/app /proto/posts/v1/posts.proto
+proto:
+    docker compose run --no-deps --rm -v $(pwd)/../proto:/proto development python -m grpc_tools.protoc -Isrc/proto=/proto/posts/v1 --python_out=/app --pyi_out=/app --grpc_python_out=/app /proto/posts/v1/posts.proto
