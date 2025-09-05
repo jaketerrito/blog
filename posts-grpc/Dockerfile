@@ -15,11 +15,11 @@ FROM builder AS development
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project --only-dev
+    uv sync --locked --no-install-project
 
 ENV PYTHONPATH=/app
 COPY . /app
-ENTRYPOINT ["uv", "run"]
+ENTRYPOINT ["uv", "run", "--no-sync"]
 
 
 FROM python:3.13-slim-bookworm AS production
