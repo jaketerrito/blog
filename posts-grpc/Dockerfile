@@ -23,7 +23,6 @@ ENTRYPOINT ["uv", "run"]
 
 
 FROM python:3.13-slim-bookworm AS production
-LABEL org.opencontainers.image.source=https://github.com/jaketerrito/blog/posts-grpc
 
 WORKDIR /app
 

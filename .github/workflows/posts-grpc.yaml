@@ -69,6 +69,8 @@ jobs:
           type=semver,pattern={{major}}
           type=sha,format=short
           type=raw,value=latest,enable={{is_default_branch}}
+          label=org.opencontainers.image.source=https://github.com/jaketerrito/blog/posts-grpc
+          label=org.opencontainers.image.url=https://github.com/jaketerrito/blog/posts-grpc
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
