@@ -33,4 +33,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Copy in source
 COPY --chown=app:app . /app
 
-CMD ["python", "-m", "src/server.py"]
+CMD ["python", "-m", "src.server"]
