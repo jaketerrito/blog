@@ -1,7 +1,11 @@
 from mongoengine import connect
-import os
+from src import config
 
 
 def init_db_connection():
-
-    connect(host=os.getenv("MONGO_HOST"), port=int(os.getenv("MONGO_PORT")), username=os.getenv("MONGO_USER"), password=os.getenv("MONGO_PASSWORD"))
+    connect(
+        host=config.MONGO_HOST,
+        port=int(config.MONGO_PORT),
+        username=config.MONGO_USER,
+        password=config.MONGO_PASSWORD,
+    )
