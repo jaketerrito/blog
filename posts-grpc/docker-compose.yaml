@@ -12,10 +12,14 @@ services:
     ports:
       - "50051:50051"
     environment:
-      DB_URI: mongodb://root:example@db:27017
+      MONGO_USER: root
+      MONGO_PASSWORD: example
+      MONGO_HOST: db
+      MONGO_PORT: 27017
       PORT: 50051
     depends_on:
       - db
+      - grpcui
     tty: true
     stdin_open: true
     logging:
