@@ -1,0 +1,76 @@
+name: Frontend CI
+
+on:
+  push:
+    paths:
+      - 'frontend-grpc/**'
+      - 'proto/posts/**'
+      - '.github/workflows/frontend-grpc.yaml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Set up Just
+      uses: extractions/setup-just@v3
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Build image
+      run: |
+        cd frontend-grpc
+        just build
+
+    - name: Generate proto
+      run: |
+        cd frontend-grpc
+        just proto
+
+    - name: Lint
+      run: |
+        cd frontend-grpc
+        just lint
+
+    - name: Test
+      run: |
+        cd frontend-grpc
+        just test
+
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    
+    - name: Extract metadata (tags, labels)
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+         images: ghcr.io/${{ github.repository_owner }}/blog-frontend
+         tags: |
+           type=ref,event=branch
+           type=ref,event=tag
+           type=semver,pattern={{version}}
+           type=semver,pattern={{major}}.{{minor}}
+           type=semver,pattern={{major}}
+           type=sha,format=short
+           type=raw,value=latest,enable={{is_default_branch}}
+         labels: |
+           org.opencontainers.image.source=https://github.com/jaketerrito/blog/frontend-grpc
+           org.opencontainers.image.url=https://github.com/jaketerrito/blog/frontend-grpc
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: frontend-grpc
+        target: production
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}

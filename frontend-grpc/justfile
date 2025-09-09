@@ -1,25 +1,31 @@
+# Build the development container
 build:
 	docker compose down -v
 	docker compose build development
-	
-test:
-	echo "unimplemented"
-	
-up:
+
+# Start the development container
+up: build
 	docker compose up -d development
 
+# Stop the development container
 down:
 	docker compose down development -v
 
+# Test the application
+test:
+	docker compose run --rm development npm test
+
+# Show the logs of the development container
 logs:
 	docker compose logs -f development
 
+# Lint the code
 lint:
 	docker compose run --rm development npm run lint
 
+# Format the code
 format:
 	docker compose run --rm development npm run format
-
 
 # Generate proto client
 proto:
