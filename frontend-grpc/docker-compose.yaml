@@ -13,10 +13,10 @@ services:
       - ./:/frontend
       - node_modules:/frontend/node_modules
     networks:
-      - posts-grpc_default
+      - blog_network
 volumes:
   node_modules:
 
 networks:
-  posts-grpc_default:
-    external: true
+  blog_network:
+    name: blog_network
