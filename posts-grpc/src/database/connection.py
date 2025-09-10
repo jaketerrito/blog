@@ -8,5 +8,5 @@ def init_db_connection():
         port=int(config.MONGO_PORT),
         username=config.MONGO_USER,
         password=config.MONGO_PASSWORD,
-        authMechanism="SCRAM-SHA-256"
+        authMechanism="SCRAM-SHA-256",
     )
