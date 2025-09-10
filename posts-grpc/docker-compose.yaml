@@ -12,6 +12,7 @@ services:
     ports:
       - "50051:50051"
     environment:
+      MONGO_DB: admin
       MONGO_USER: root
       MONGO_PASSWORD: example
       MONGO_HOST: db
