@@ -30,7 +30,7 @@ function RootComponent() {
   return (
     <RootDocument>
       <Link to="/">Home</Link> <br />
-      <Link to="/login">Login</Link> 
+      <Link to="/login">Login</Link>
       <Outlet />
     </RootDocument>
   );

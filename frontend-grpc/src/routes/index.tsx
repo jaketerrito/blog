@@ -3,8 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { postsClient } from "../client";
 
-export const getPostPreviews = createServerFn().handler(async () => {
-});
+export const getPostPreviews = createServerFn().handler(async () => {});
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -21,7 +20,7 @@ function Home() {
       <h1>Posts</h1>
       {postPreviews.map((postPreview) => (
         <div key={postPreview.id}>
-          <Link to={'/post/$postId'} params={{ postId: postPreview.id }}>
+          <Link to={"/post/$postId"} params={{ postId: postPreview.id }}>
             {postPreview.title || "Untitled"}
           </Link>
         </div>

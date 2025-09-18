@@ -1,18 +1,18 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { postsClient } from '../../client';
+import { createFileRoute } from "@tanstack/react-router";
+import { postsClient } from "../../client";
 
-export const Route = createFileRoute('/post/$postId')({
+export const Route = createFileRoute("/post/$postId")({
   component: RouteComponent,
   loader: async ({ params }) => {
     const { post } = await postsClient.getPost({ id: params.postId });
     return post;
   },
-})
+});
 
 function RouteComponent() {
   const post = Route.useLoaderData();
   if (!post) {
-    return "404"
+    return "404";
   }
   return (
     <div>
