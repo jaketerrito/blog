@@ -30,7 +30,7 @@ function RootComponent() {
   return (
     <RootDocument>
       <Link to="/">Home</Link> <br />
-      <a href="https://google.com">Login</a> 
+      <Link to="/login">Login</Link> 
       <Outlet />
     </RootDocument>
   );
