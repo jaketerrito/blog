@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as PostPostIdRouteImport } from './routes/post/$postId'
-import { Route as Oauth2CallbackRouteImport } from './routes/oauth2.callback'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,42 +28,33 @@ const PostPostIdRoute = PostPostIdRouteImport.update({
   path: '/post/$postId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Oauth2CallbackRoute = Oauth2CallbackRouteImport.update({
-  id: '/oauth2/callback',
-  path: '/oauth2/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/oauth2/callback': typeof Oauth2CallbackRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login': typeof LoginIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/oauth2/callback': typeof Oauth2CallbackRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login': typeof LoginIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/oauth2/callback': typeof Oauth2CallbackRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login/': typeof LoginIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/oauth2/callback' | '/post/$postId' | '/login'
+  fullPaths: '/' | '/post/$postId' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/oauth2/callback' | '/post/$postId' | '/login'
-  id: '__root__' | '/' | '/oauth2/callback' | '/post/$postId' | '/login/'
+  to: '/' | '/post/$postId' | '/login'
+  id: '__root__' | '/' | '/post/$postId' | '/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  Oauth2CallbackRoute: typeof Oauth2CallbackRoute
   PostPostIdRoute: typeof PostPostIdRoute
   LoginIndexRoute: typeof LoginIndexRoute
 }
@@ -92,19 +82,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostPostIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/oauth2/callback': {
-      id: '/oauth2/callback'
-      path: '/oauth2/callback'
-      fullPath: '/oauth2/callback'
-      preLoaderRoute: typeof Oauth2CallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  Oauth2CallbackRoute: Oauth2CallbackRoute,
   PostPostIdRoute: PostPostIdRoute,
   LoginIndexRoute: LoginIndexRoute,
 }
