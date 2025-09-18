@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
 
@@ -9,38 +9,42 @@ const getUserEmail = createServerFn().handler(async () => {
   return userEmail || null;
 });
 
-export const Route = createFileRoute("/oauth2/callback")({
-  component: OAuth2CallbackComponent,
+export const Route = createFileRoute('/oauth2')({
+  component: LoginPage,
   loader: async () => {
     const email = await getUserEmail();
     return { email };
   },
-});
+})
 
-function OAuth2CallbackComponent() {
+function LoginPage() {
   const { email: userEmail } = Route.useLoaderData();
-  
+
+  const handleLogin = () => {
+    window.location.href = '/oauth2?redirect=true';
+  };
+
+  const handleLogout = () => {
+    window.location.href = '/logout';
+  };
+
   return (
     <div>
-      <h1>Authentication Complete</h1>
-      
+      <h1>Blog Authentication</h1>
+
       {userEmail ? (
         <div>
-          <h2>✅ Successfully Authenticated</h2>
+          <h2>✅ Authenticated</h2>
           <p>Email: <strong>{userEmail}</strong></p>
-          <p>Your authentication cookies have been set by Envoy Gateway.</p>
+          <button onClick={handleLogout}>Logout</button>
           <br />
-          <p>You can now:</p>
-          <ul>
-            <li><a href="/oauth2">Go to OAuth2 page</a></li>
-            <li><a href="/">Go to Home</a></li>
-          </ul>
+          <a href="/">Go to Home</a>
         </div>
       ) : (
         <div>
-          <h2>❌ Authentication Failed</h2>
-          <p>No user email found in headers.</p>
-          <a href="/oauth2">Try again</a>
+          <h2>Not Authenticated</h2>
+          <p>Click to login with Google OAuth through Envoy Gateway</p>
+          <button onClick={handleLogin}>Login with Google</button>
         </div>
       )}
     </div>
