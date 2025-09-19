@@ -24,7 +24,9 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  notFoundComponent: () => <div>This a custom Page not found</div>,
 });
+
 
 function RootComponent() {
   return (

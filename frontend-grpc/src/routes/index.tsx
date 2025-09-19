@@ -1,20 +1,23 @@
 // src/routes/index.tsx
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { postsClient } from "../client";
 
-export const getPostPreviews = createServerFn().handler(async () => {});
+export const getPostPreviews = createServerFn().handler(async () => {
+  const { previews } = await postsClient.getPostPreviews({});
+  return previews;
+});
 
 export const Route = createFileRoute("/")({
   component: Home,
   loader: async () => {
-    const { previews } = await postsClient.getPostPreviews({});
-    return previews;
+    return await getPostPreviews();
   },
 });
 
 function Home() {
   const postPreviews = Route.useLoaderData();
+
   return (
     <div>
       <h1>Posts</h1>

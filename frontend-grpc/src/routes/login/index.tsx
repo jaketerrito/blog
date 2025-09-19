@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { getUserEmail } from '../api/private';
+import { getUserEmail } from '../../utils/session';
+
+
 
 export const Route = createFileRoute('/login/')({
   component: RouteComponent,
@@ -11,6 +13,6 @@ export const Route = createFileRoute('/login/')({
 
 function RouteComponent() {
   const { email: userEmail } = Route.useLoaderData();
-
-  return <div>Hello {userEmail}</div>
+  return <div>Logged in as {userEmail}</div>
 }
+

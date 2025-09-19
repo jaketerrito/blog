@@ -9,17 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TestRouteImport } from './routes/test'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as PostPostIdRouteImport } from './routes/post/$postId'
-import { Route as ApiPrivateIndexRouteImport } from './routes/api/private/index'
 
-const TestRoute = TestRouteImport.update({
-  id: '/test',
-  path: '/test',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -35,59 +28,39 @@ const PostPostIdRoute = PostPostIdRouteImport.update({
   path: '/post/$postId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPrivateIndexRoute = ApiPrivateIndexRouteImport.update({
-  id: '/api/private/',
-  path: '/api/private/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login': typeof LoginIndexRoute
-  '/api/private': typeof ApiPrivateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login': typeof LoginIndexRoute
-  '/api/private': typeof ApiPrivateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login/': typeof LoginIndexRoute
-  '/api/private/': typeof ApiPrivateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test' | '/post/$postId' | '/login' | '/api/private'
+  fullPaths: '/' | '/post/$postId' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test' | '/post/$postId' | '/login' | '/api/private'
-  id: '__root__' | '/' | '/test' | '/post/$postId' | '/login/' | '/api/private/'
+  to: '/' | '/post/$postId' | '/login'
+  id: '__root__' | '/' | '/post/$postId' | '/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TestRoute: typeof TestRoute
   PostPostIdRoute: typeof PostPostIdRoute
   LoginIndexRoute: typeof LoginIndexRoute
-  ApiPrivateIndexRoute: typeof ApiPrivateIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/test': {
-      id: '/test'
-      path: '/test'
-      fullPath: '/test'
-      preLoaderRoute: typeof TestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -109,22 +82,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostPostIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/private/': {
-      id: '/api/private/'
-      path: '/api/private'
-      fullPath: '/api/private'
-      preLoaderRoute: typeof ApiPrivateIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TestRoute: TestRoute,
   PostPostIdRoute: PostPostIdRoute,
   LoginIndexRoute: LoginIndexRoute,
-  ApiPrivateIndexRoute: ApiPrivateIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

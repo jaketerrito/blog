@@ -1,11 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { postsClient } from "../../client";
+import { createServerFn } from "@tanstack/react-start";
+
+const getPost = createServerFn()
+.validator((id: string) => id)
+.handler(async ({ data: id}) => {
+  const { post } = await postsClient.getPost({ id: id });
+  return post;
+});
 
 export const Route = createFileRoute("/post/$postId")({
   component: RouteComponent,
   loader: async ({ params }) => {
-    const { post } = await postsClient.getPost({ id: params.postId });
-    return post;
+    return await getPost({ data: params.postId });
   },
 });
 
