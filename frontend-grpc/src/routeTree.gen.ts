@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
-import { Route as Oauth2RouteImport } from './routes/oauth2'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as PostPostIdRouteImport } from './routes/post/$postId'
@@ -19,11 +18,6 @@ import { Route as ApiPrivateIndexRouteImport } from './routes/api/private/index'
 const TestRoute = TestRouteImport.update({
   id: '/test',
   path: '/test',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Oauth2Route = Oauth2RouteImport.update({
-  id: '/oauth2',
-  path: '/oauth2',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,7 +43,6 @@ const ApiPrivateIndexRoute = ApiPrivateIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/oauth2': typeof Oauth2Route
   '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login': typeof LoginIndexRoute
@@ -57,7 +50,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/oauth2': typeof Oauth2Route
   '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login': typeof LoginIndexRoute
@@ -66,7 +58,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/oauth2': typeof Oauth2Route
   '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
   '/login/': typeof LoginIndexRoute
@@ -74,28 +65,14 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/oauth2'
-    | '/test'
-    | '/post/$postId'
-    | '/login'
-    | '/api/private'
+  fullPaths: '/' | '/test' | '/post/$postId' | '/login' | '/api/private'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/oauth2' | '/test' | '/post/$postId' | '/login' | '/api/private'
-  id:
-    | '__root__'
-    | '/'
-    | '/oauth2'
-    | '/test'
-    | '/post/$postId'
-    | '/login/'
-    | '/api/private/'
+  to: '/' | '/test' | '/post/$postId' | '/login' | '/api/private'
+  id: '__root__' | '/' | '/test' | '/post/$postId' | '/login/' | '/api/private/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  Oauth2Route: typeof Oauth2Route
   TestRoute: typeof TestRoute
   PostPostIdRoute: typeof PostPostIdRoute
   LoginIndexRoute: typeof LoginIndexRoute
@@ -109,13 +86,6 @@ declare module '@tanstack/react-router' {
       path: '/test'
       fullPath: '/test'
       preLoaderRoute: typeof TestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/oauth2': {
-      id: '/oauth2'
-      path: '/oauth2'
-      fullPath: '/oauth2'
-      preLoaderRoute: typeof Oauth2RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -151,7 +121,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  Oauth2Route: Oauth2Route,
   TestRoute: TestRoute,
   PostPostIdRoute: PostPostIdRoute,
   LoginIndexRoute: LoginIndexRoute,

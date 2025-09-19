@@ -30,7 +30,8 @@ function RootComponent() {
   return (
     <RootDocument>
       <Link to="/">Home</Link> <br />
-      <Link to="/oauth2">Login</Link>
+      <Link to="/login">Login</Link> <br/>
+      <a href="/logout" style={{ marginTop: '10px', display: 'inline-block' }}>Logout</a> <br/>
       <Outlet />
     </RootDocument>
   );
