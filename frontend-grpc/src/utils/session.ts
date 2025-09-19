@@ -6,8 +6,7 @@ import { getWebRequest } from "@tanstack/react-start/server";
 
 // Attempt to return the email from the session
 export const getUserEmail = createServerFn().handler(async () => {
-    const request = getWebRequest();
-    const userEmail = request.headers.get("x-user-email");
-    return userEmail || null;
-  });
-  
+  const request = getWebRequest();
+  const userEmail = request.headers.get("x-user-email");
+  return userEmail || null;
+});

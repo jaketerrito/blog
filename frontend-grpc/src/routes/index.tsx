@@ -1,5 +1,5 @@
 // src/routes/index.tsx
-import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { postsClient } from "../client";
 
