@@ -9,10 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TestRouteImport } from './routes/test'
 import { Route as Oauth2RouteImport } from './routes/oauth2'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as PostPostIdRouteImport } from './routes/post/$postId'
+import { Route as ApiPrivateIndexRouteImport } from './routes/api/private/index'
 
+const TestRoute = TestRouteImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Oauth2Route = Oauth2RouteImport.update({
   id: '/oauth2',
   path: '/oauth2',
@@ -23,44 +31,86 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostPostIdRoute = PostPostIdRouteImport.update({
   id: '/post/$postId',
   path: '/post/$postId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPrivateIndexRoute = ApiPrivateIndexRouteImport.update({
+  id: '/api/private/',
+  path: '/api/private/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/oauth2': typeof Oauth2Route
+  '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
+  '/login': typeof LoginIndexRoute
+  '/api/private': typeof ApiPrivateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/oauth2': typeof Oauth2Route
+  '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
+  '/login': typeof LoginIndexRoute
+  '/api/private': typeof ApiPrivateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/oauth2': typeof Oauth2Route
+  '/test': typeof TestRoute
   '/post/$postId': typeof PostPostIdRoute
+  '/login/': typeof LoginIndexRoute
+  '/api/private/': typeof ApiPrivateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/oauth2' | '/post/$postId'
+  fullPaths:
+    | '/'
+    | '/oauth2'
+    | '/test'
+    | '/post/$postId'
+    | '/login'
+    | '/api/private'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/oauth2' | '/post/$postId'
-  id: '__root__' | '/' | '/oauth2' | '/post/$postId'
+  to: '/' | '/oauth2' | '/test' | '/post/$postId' | '/login' | '/api/private'
+  id:
+    | '__root__'
+    | '/'
+    | '/oauth2'
+    | '/test'
+    | '/post/$postId'
+    | '/login/'
+    | '/api/private/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   Oauth2Route: typeof Oauth2Route
+  TestRoute: typeof TestRoute
   PostPostIdRoute: typeof PostPostIdRoute
+  LoginIndexRoute: typeof LoginIndexRoute
+  ApiPrivateIndexRoute: typeof ApiPrivateIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/oauth2': {
       id: '/oauth2'
       path: '/oauth2'
@@ -75,11 +125,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/post/$postId': {
       id: '/post/$postId'
       path: '/post/$postId'
       fullPath: '/post/$postId'
       preLoaderRoute: typeof PostPostIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/private/': {
+      id: '/api/private/'
+      path: '/api/private'
+      fullPath: '/api/private'
+      preLoaderRoute: typeof ApiPrivateIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +152,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Oauth2Route: Oauth2Route,
+  TestRoute: TestRoute,
   PostPostIdRoute: PostPostIdRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  ApiPrivateIndexRoute: ApiPrivateIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
