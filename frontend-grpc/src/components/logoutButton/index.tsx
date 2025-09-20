@@ -1,4 +1,7 @@
-export const logout = () => {
+import { clearUserSession } from "../../utils/session";
+
+export const logout = async () => {
+  await clearUserSession();
   window.location.href = "/logout";
 };
 

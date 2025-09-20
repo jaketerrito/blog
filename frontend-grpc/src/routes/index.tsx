@@ -14,17 +14,15 @@ export const Route = createFileRoute("/")({
   loader: async () => {
     return {
       postPreviews: await getPostPreviews(),
-      userEmail: await getUserEmail(),
     };
   },
 });
 
 function Home() {
-  const { postPreviews, userEmail } = Route.useLoaderData();
+  const { postPreviews } = Route.useLoaderData();
 
   return (
     <div>
-      <p>It be {userEmail} visiting us</p>
       <br />
       <h1>Posts</h1>
       {postPreviews.map((postPreview) => (

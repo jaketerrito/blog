@@ -8,11 +8,19 @@ type SessionData = {
   userEmail: string;
 };
 
-// Attempt to return the email from the session
-export const getUserEmail = createServerFn().handler(async () => {
-  const request = getWebRequest();
-  const authUserEmail = request.headers.get("x-user-email");
 
+// TODO: provide secret for password
+// TODO: reusable method to get session
+export const clearUserSession = createServerFn().handler(async () => {
+  const session = await useSession<SessionData>({
+    password: "wowthisisasasdfn321pin4i21n4i21n4",
+  });
+  session.clear();
+});
+
+export const loginUser = createServerFn().handler(async () => {
+  const request = getWebRequest();
+  const authUserEmail = request.headers.get("x-user-email") || process.env.DEV_USER;
   const session = await useSession<SessionData>({
     password: "wowthisisasasdfn321pin4i21n4i21n4",
   });
@@ -22,6 +30,12 @@ export const getUserEmail = createServerFn().handler(async () => {
       userEmail: authUserEmail,
     });
   }
+});
+
+export const getUserEmail = createServerFn().handler(async () => {
+  const session = await useSession<SessionData>({
+    password: "wowthisisasasdfn321pin4i21n4i21n4",
+  });
 
   return session.data.userEmail;
 });

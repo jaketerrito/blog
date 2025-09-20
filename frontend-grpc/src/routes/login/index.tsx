@@ -1,15 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { getUserEmail } from "../../utils/session";
+import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { getUserEmail, loginUser } from "../../utils/session";
 
 export const Route = createFileRoute("/login/")({
   component: RouteComponent,
   loader: async () => {
-    const email = await getUserEmail();
-    return { email };
+    await loginUser();
   },
 });
 
 function RouteComponent() {
-  const { email: userEmail } = Route.useLoaderData();
-  return <div>Logged in as {userEmail}</div>;
+  return <Navigate to="/" />;
 }
+// TODO: redirect back to original page

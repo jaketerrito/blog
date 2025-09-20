@@ -6,6 +6,7 @@ services:
       target: development
     environment:
       - POSTS_API_URL=http://posts-grpc:50051
+      - DEV_USER=local@test.com
     ports:
       - "5173:5173"
       - "3000:3000"

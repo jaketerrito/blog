@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { LoginButton } from "../components/loginButton";
 import { LogoutButton } from "../components/logoutButton";
+import { getUserEmail } from "../utils/session";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -27,12 +28,19 @@ export const Route = createRootRoute({
   }),
   component: RootComponent,
   notFoundComponent: () => <div>This a custom Page not found</div>,
+  loader: async () => {
+    return {
+      userEmail: await getUserEmail(),
+    };
+  },
 });
 
 function RootComponent() {
+  const { userEmail } = Route.useLoaderData();
   return (
     <RootDocument>
       <Link to="/">Home</Link> <br />
+      <p>Logged in as {userEmail}</p>
       <LoginButton /> <br />
       <LogoutButton /> <br />
       <Outlet />
