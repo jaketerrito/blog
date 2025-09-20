@@ -3,6 +3,7 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest, useSession } from "@tanstack/react-start/server";
+import { AuthContextValue } from "../auth/context/AuthContext";
 
 type SessionData = {
   userEmail: string;
@@ -17,7 +18,7 @@ export const clearUserSession = createServerFn().handler(async () => {
   session.clear();
 });
 
-export const loginUser = createServerFn().handler(async () => {
+export const login = createServerFn().handler(async () => {
   const request = getWebRequest();
   const authUserEmail =
     request.headers.get("x-user-email") || process.env.DEV_USER;
@@ -32,10 +33,18 @@ export const loginUser = createServerFn().handler(async () => {
   }
 });
 
-export const getUserEmail = createServerFn().handler(async () => {
-  const session = await useSession<SessionData>({
-    password: "wowthisisasasdfn321pin4i21n4i21n4",
-  });
+export const getAuthContext = createServerFn().handler(
+  async (): Promise<AuthContextValue | null> => {
+    const session = await useSession<SessionData>({
+      password: "wowthisisasasdfn321pin4i21n4i21n4",
+    });
 
-  return session.data.userEmail;
-});
+    if (!session.data.userEmail) {
+      return null;
+    }
+
+    return {
+      userEmail: session.data.userEmail,
+    };
+  },
+);

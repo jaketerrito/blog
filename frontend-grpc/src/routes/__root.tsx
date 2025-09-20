@@ -7,9 +7,9 @@ import {
   Scripts,
   Link,
 } from "@tanstack/react-router";
-import { LoginButton } from "../components/loginButton";
-import { LogoutButton } from "../components/logoutButton";
-import { getUserEmail } from "../utils/session";
+import { getAuthContext } from "../modules/funcs/session";
+import { UserInfo } from "../modules/auth/components/UserInfo";
+import { AuthContextProvider } from "../modules/auth/context";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -22,7 +22,7 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title: "Territo",
       },
     ],
   }),
@@ -30,21 +30,21 @@ export const Route = createRootRoute({
   notFoundComponent: () => <div>This a custom Page not found</div>,
   loader: async () => {
     return {
-      userEmail: await getUserEmail(),
+      authContext: await getAuthContext(),
     };
   },
 });
 
 function RootComponent() {
-  const { userEmail } = Route.useLoaderData();
+  const { authContext } = Route.useLoaderData();
   return (
-    <RootDocument>
-      <Link to="/">Home</Link> <br />
-      <p>Logged in as {userEmail}</p>
-      <LoginButton /> <br />
-      <LogoutButton /> <br />
-      <Outlet />
-    </RootDocument>
+    <AuthContextProvider authContext={authContext}>
+      <RootDocument>
+        <Link to="/">Home</Link> <br />
+        <UserInfo /> <br />
+        <Outlet />
+      </RootDocument>
+    </AuthContextProvider>
   );
 }
 

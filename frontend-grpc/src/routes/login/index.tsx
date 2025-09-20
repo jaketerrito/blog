@@ -1,14 +1,19 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
-import { loginUser } from "../../utils/session";
+import { login } from "../../modules/funcs/session";
 
 export const Route = createFileRoute("/login/")({
   component: RouteComponent,
   loader: async () => {
-    await loginUser();
+    await login();
+  },
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      redirect: (search.redirect as string) || "/",
+    };
   },
 });
 
 function RouteComponent() {
-  return <Navigate to="/" />;
+  const { redirect } = Route.useSearch();
+  return <Navigate to={redirect} />;
 }
-// TODO: redirect back to original page
