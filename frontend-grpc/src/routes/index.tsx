@@ -20,11 +20,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const {postPreviews, userEmail} = Route.useLoaderData();
+  const { postPreviews, userEmail } = Route.useLoaderData();
 
   return (
     <div>
-      <p>It's {userEmail} visiting us</p>
+      <p>It be {userEmail} visiting us</p>
       <br />
       <h1>Posts</h1>
       {postPreviews.map((postPreview) => (

@@ -9,8 +9,6 @@ import {
 } from "@tanstack/react-router";
 import { LoginButton } from "../components/loginButton";
 import { LogoutButton } from "../components/logoutButton";
-import { getUserEmail } from "../utils/session";
-import { useServerFn } from "@tanstack/react-start";
 
 export const Route = createRootRoute({
   head: () => ({
