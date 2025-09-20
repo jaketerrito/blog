@@ -21,5 +21,5 @@ export const getUserEmail = createServerFn().handler(async () => {
     });
   } 
 
-  return session.data.userEmail || authUserEmail;
+  return session.data.userEmail;
 });
