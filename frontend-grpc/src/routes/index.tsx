@@ -2,7 +2,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { postsClient } from "../client";
-import { getUserEmail } from "../utils/session";
 
 export const getPostPreviews = createServerFn().handler(async () => {
   const { previews } = await postsClient.getPostPreviews({});

@@ -8,7 +8,6 @@ type SessionData = {
   userEmail: string;
 };
 
-
 // TODO: provide secret for password
 // TODO: reusable method to get session
 export const clearUserSession = createServerFn().handler(async () => {
@@ -20,7 +19,8 @@ export const clearUserSession = createServerFn().handler(async () => {
 
 export const loginUser = createServerFn().handler(async () => {
   const request = getWebRequest();
-  const authUserEmail = request.headers.get("x-user-email") || process.env.DEV_USER;
+  const authUserEmail =
+    request.headers.get("x-user-email") || process.env.DEV_USER;
   const session = await useSession<SessionData>({
     password: "wowthisisasasdfn321pin4i21n4i21n4",
   });

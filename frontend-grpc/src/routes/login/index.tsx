@@ -1,5 +1,5 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
-import { getUserEmail, loginUser } from "../../utils/session";
+import { loginUser } from "../../utils/session";
 
 export const Route = createFileRoute("/login/")({
   component: RouteComponent,
