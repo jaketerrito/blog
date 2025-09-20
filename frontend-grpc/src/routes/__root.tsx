@@ -7,6 +7,10 @@ import {
   Scripts,
   Link,
 } from "@tanstack/react-router";
+import { LoginButton } from "../components/loginButton";
+import { LogoutButton } from "../components/logoutButton";
+import { getUserEmail } from "../utils/session";
+import { useServerFn } from "@tanstack/react-start";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -31,11 +35,8 @@ function RootComponent() {
   return (
     <RootDocument>
       <Link to="/">Home</Link> <br />
-      <Link to="/login">Login</Link> <br />
-      <a href="/logout" style={{ marginTop: "10px", display: "inline-block" }}>
-        Logout
-      </a>{" "}
-      <br />
+      <LoginButton /> <br />
+      <LogoutButton /> <br />
       <Outlet />
     </RootDocument>
   );
