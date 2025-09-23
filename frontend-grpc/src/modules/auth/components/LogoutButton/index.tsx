@@ -1,4 +1,4 @@
-import { clearUserSession } from "../../../funcs/session";
+import { clearUserSession } from "../../funcs/session";
 
 export const logout = async () => {
   await clearUserSession();

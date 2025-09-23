@@ -7,7 +7,7 @@ import {
   Scripts,
   Link,
 } from "@tanstack/react-router";
-import { getAuthContext } from "../modules/funcs/session";
+import { getAuthContext } from "../modules/auth/funcs/session";
 import { UserInfo } from "../modules/auth/components/UserInfo";
 import { AuthContextProvider } from "../modules/auth/context";
 

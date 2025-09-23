@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { postsClient } from "../../client";
+import { postsClient } from "../../modules/client";
 import { createServerFn } from "@tanstack/react-start";
 
 const getPost = createServerFn()

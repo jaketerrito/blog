@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { LoginButton } from "../LoginButton";
 import { LogoutButton } from "../LogoutButton";
+import { AuthContext } from "../../context";
 
 export function UserInfo() {
   const authContext = useContext(AuthContext);

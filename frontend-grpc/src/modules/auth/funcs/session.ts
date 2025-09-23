@@ -3,18 +3,22 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest, useSession } from "@tanstack/react-start/server";
-import { AuthContextValue } from "../auth/context/AuthContext";
+import { AuthContextValue } from "../context/AuthContext";
 
 type SessionData = {
   userEmail: string;
 };
 
 // TODO: provide secret for password
-// TODO: reusable method to get session
-export const clearUserSession = createServerFn().handler(async () => {
-  const session = await useSession<SessionData>({
+const getAuthSession = () => {
+  return useSession<SessionData>({
+    name: "auth",
     password: "wowthisisasasdfn321pin4i21n4i21n4",
   });
+}
+
+export const clearUserSession = createServerFn().handler(async () => {
+  const session = await getAuthSession();
   session.clear();
 });
 
@@ -22,9 +26,7 @@ export const login = createServerFn().handler(async () => {
   const request = getWebRequest();
   const authUserEmail =
     request.headers.get("x-user-email") || process.env.DEV_USER;
-  const session = await useSession<SessionData>({
-    password: "wowthisisasasdfn321pin4i21n4i21n4",
-  });
+  const session = await getAuthSession();
 
   if (authUserEmail && session.data.userEmail !== authUserEmail) {
     await session.update({
@@ -35,9 +37,7 @@ export const login = createServerFn().handler(async () => {
 
 export const getAuthContext = createServerFn().handler(
   async (): Promise<AuthContextValue | null> => {
-    const session = await useSession<SessionData>({
-      password: "wowthisisasasdfn321pin4i21n4i21n4",
-    });
+    const session = await getAuthSession();
 
     if (!session.data.userEmail) {
       return null;

@@ -1,5 +1,5 @@
 import { createChannel, createClient } from "nice-grpc";
-import { PostsServiceClient, PostsServiceDefinition } from "../proto/posts";
+import { PostsServiceClient, PostsServiceDefinition } from "../../proto/posts";
 
 const API_URL = process.env.POSTS_API_URL || "localhost:50051";
 

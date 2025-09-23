@@ -1,7 +1,7 @@
 // src/routes/index.tsx
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { postsClient } from "../client";
+import { postsClient } from "../modules/client";
 
 export const getPostPreviews = createServerFn().handler(async () => {
   const { previews } = await postsClient.getPostPreviews({});
