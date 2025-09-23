@@ -1,19 +1,15 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Navigate, redirect } from "@tanstack/react-router";
 import { login } from "../../modules/funcs/session";
 
 export const Route = createFileRoute("/login/")({
-  component: RouteComponent,
-  loader: async () => {
-    await login();
-  },
   validateSearch: (search: Record<string, unknown>) => {
     return {
-      redirect: (search.redirect as string) || "/",
+      redirectPath: (search.redirect as string) || "/",
     };
   },
+  loaderDeps: ({ search: { redirectPath } }) => ({ redirectPath }),
+  loader: async ({ deps: { redirectPath } }) => {
+    await login();
+    throw redirect({ to: redirectPath });
+  },
 });
-
-function RouteComponent() {
-  const { redirect } = Route.useSearch();
-  return <Navigate to={redirect} />;
-}
