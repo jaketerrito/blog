@@ -1,4 +1,4 @@
-import { createFileRoute, Navigate, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { login } from "../../modules/funcs/session";
 
 export const Route = createFileRoute("/login/")({
