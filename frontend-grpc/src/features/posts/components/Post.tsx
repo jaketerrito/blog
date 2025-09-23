@@ -1,7 +1,7 @@
-import { Post } from "@/lib/grpc/posts";
+import { Post as PostType } from "@/generated/proto/posts";
 
-interface PostDetailProps {
-  post: Post | null;
+interface PostProps {
+  post: PostType;
 }
 
 function formatDate(date: Date | undefined): string {
@@ -20,10 +20,7 @@ function formatDate(date: Date | undefined): string {
   }).format(date);
 }
 
-export function PostDetail({ post }: PostDetailProps) {
-  if (!post) {
-    return <div>404 - Post not found</div>;
-  }
+export function Post({ post }: PostProps) {
 
   return (
     <div>

@@ -9,7 +9,9 @@
     "build": "vite build",
     "start": "node .output/server/index.mjs",
     "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,css,md}\"",
-    "lint": "eslint \"./**/*.{ts,tsx,js,jsx}\" --fix"
+    "lint": "npm run lint:eslint && npm run lint:types",
+    "lint:eslint": "eslint \"./**/*.{ts,tsx,js,jsx}\" --fix",
+    "lint:types": "tsc --noEmit --skipLibCheck"
   },
   "keywords": [],
   "author": "",

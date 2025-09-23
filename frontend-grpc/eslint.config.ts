@@ -11,7 +11,9 @@ export default defineConfig([
     extends: ["js/recommended"],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
-  tseslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
   pluginReact.configs.flat.recommended,
   {
     rules: {
@@ -20,6 +22,10 @@ export default defineConfig([
       // Enable other useful React rules
       "react/jsx-uses-react": "off",
       "react/jsx-uses-vars": "error",
+      // Enable TypeScript strict rules
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/strict-boolean-expressions": "off",
     },
   },
 ]);

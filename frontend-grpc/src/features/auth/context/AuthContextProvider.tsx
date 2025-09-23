@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import { AuthContext, AuthContextValue } from "./AuthContext";
 
-type Props = {
+interface Props {
   authContext: AuthContextValue | null;
   children?: ReactNode;
-};
+}
 
 export function AuthContextProvider({ authContext, children }: Props) {
   return (

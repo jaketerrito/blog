@@ -13,7 +13,8 @@
         "@/features/*": ["src/features/*"],
         "@/lib/*": ["src/lib/*"],
         "@/types/*": ["src/types/*"],
-        "@/routes/*": ["src/routes/*"]
+        "@/routes/*": ["src/routes/*"],
+        "@/generated/*": ["src/generated/*"]
       }
     }
   }

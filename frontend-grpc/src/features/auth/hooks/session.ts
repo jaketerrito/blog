@@ -5,9 +5,9 @@ import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest, useSession } from "@tanstack/react-start/server";
 import { AuthContextValue } from "@/features/auth/context/AuthContext";
 
-type SessionData = {
+interface SessionData {
   userEmail: string;
-};
+}
 
 // TODO: provide secret for password
 const getAuthSession = () => {

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getPost } from "@/features/posts/hooks";
-import { PostDetail } from "@/features/posts/components";
+import { Post } from "@/features/posts/components";
 
 const getPostServerFn = createServerFn()
   .validator((id: string) => id)
@@ -18,5 +18,8 @@ export const Route = createFileRoute("/post/$postId")({
 
 function RouteComponent() {
   const post = Route.useLoaderData();
-  return <PostDetail post={post} />;
+  if (!post) {
+    return <div>404 - Post not found</div>;
+  }
+  return <Post post={post} />;
 }
