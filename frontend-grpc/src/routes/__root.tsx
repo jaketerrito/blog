@@ -40,7 +40,7 @@ function RootComponent() {
     <AuthContextProvider authContext={authContext}>
       <RootDocument>
         <Navbar />
-        <main style={{ padding: "2rem" }}>
+        <main>
           <Outlet />
         </main>
       </RootDocument>
