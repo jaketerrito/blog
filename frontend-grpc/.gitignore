@@ -3,5 +3,5 @@ dist
 dist-ssr
 *.local
 node_modules
-src/proto
 .tanstack
+src/generated/proto

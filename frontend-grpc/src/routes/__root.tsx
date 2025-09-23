@@ -5,11 +5,10 @@ import {
   createRootRoute,
   HeadContent,
   Scripts,
-  Link,
 } from "@tanstack/react-router";
 import { getAuthContext } from "@/features/auth/hooks/session";
-import { UserInfo } from "@/features/auth/components/UserInfo";
 import { AuthContextProvider } from "@/features/auth/context";
+import { Navbar } from "@/components";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -40,9 +39,10 @@ function RootComponent() {
   return (
     <AuthContextProvider authContext={authContext}>
       <RootDocument>
-        <Link to="/">Home</Link> <br />
-        <UserInfo /> <br />
-        <Outlet />
+        <Navbar />
+        <main style={{ padding: "2rem" }}>
+          <Outlet />
+        </main>
       </RootDocument>
     </AuthContextProvider>
   );

@@ -29,4 +29,4 @@ format:
 
 # Generate proto client
 proto:
-	docker compose run --rm -v $(pwd)/../proto:/proto development sh -c "mkdir -p /frontend/src/proto && ./node_modules/.bin/grpc_tools_node_protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=/frontend/src/proto --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false --proto_path=/proto/posts/v1 /proto/posts/v1/posts.proto"
+	docker compose run --rm -v $(pwd)/../proto:/proto development sh -c "mkdir -p /frontend/src/generated/proto && ./node_modules/.bin/grpc_tools_node_protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=/frontend/src/generated/proto --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false --proto_path=/proto/posts/v1 /proto/posts/v1/posts.proto"

@@ -15,7 +15,7 @@ const getAuthSession = () => {
     name: "auth",
     password: "wowthisisasasdfn321pin4i21n4i21n4",
   });
-}
+};
 
 export const clearUserSession = createServerFn().handler(async () => {
   const session = await getAuthSession();
