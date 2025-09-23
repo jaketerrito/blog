@@ -5,6 +5,15 @@
       "module": "ESNext",
       "target": "ES2022",
       "skipLibCheck": true,
-      "strictNullChecks": true
+      "strictNullChecks": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"],
+        "@/components/*": ["src/components/*"],
+        "@/features/*": ["src/features/*"],
+        "@/lib/*": ["src/lib/*"],
+        "@/types/*": ["src/types/*"],
+        "@/routes/*": ["src/routes/*"]
+      }
     }
   }

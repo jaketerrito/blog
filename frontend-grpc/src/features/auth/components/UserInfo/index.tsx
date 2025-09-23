@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { LoginButton } from "../LoginButton";
-import { LogoutButton } from "../LogoutButton";
-import { AuthContext } from "../../context";
+import { LoginButton } from "@/features/auth/components/LoginButton";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
+import { AuthContext } from "@/features/auth/context";
 
 export function UserInfo() {
   const authContext = useContext(AuthContext);

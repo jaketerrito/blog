@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { getPost } from "../../features/posts/hooks";
-import { PostDetail } from "../../features/posts/components";
+import { getPost } from "@/features/posts/hooks";
+import { PostDetail } from "@/features/posts/components";
 
 const getPostServerFn = createServerFn()
   .validator((id: string) => id)

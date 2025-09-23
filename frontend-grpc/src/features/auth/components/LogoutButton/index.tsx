@@ -1,4 +1,4 @@
-import { clearUserSession } from "../../hooks/session";
+import { clearUserSession } from "@/features/auth/hooks/session";
 
 export const logout = async () => {
   await clearUserSession();

@@ -3,7 +3,7 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest, useSession } from "@tanstack/react-start/server";
-import { AuthContextValue } from "../context/AuthContext";
+import { AuthContextValue } from "@/features/auth/context/AuthContext";
 
 type SessionData = {
   userEmail: string;

@@ -1,4 +1,4 @@
-import { Post } from "../../../lib/grpc/posts";
+import { Post } from "@/lib/grpc/posts";
 
 interface PostDetailProps {
   post: Post | null;
