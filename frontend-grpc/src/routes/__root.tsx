@@ -7,9 +7,9 @@ import {
   Scripts,
   Link,
 } from "@tanstack/react-router";
-import { getAuthContext } from "../modules/auth/funcs/session";
-import { UserInfo } from "../modules/auth/components/UserInfo";
-import { AuthContextProvider } from "../modules/auth/context";
+import { getAuthContext } from "../features/auth/hooks/session";
+import { UserInfo } from "../features/auth/components/UserInfo";
+import { AuthContextProvider } from "../features/auth/context";
 
 export const Route = createRootRoute({
   head: () => ({
