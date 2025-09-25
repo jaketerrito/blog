@@ -1,7 +1,7 @@
-import { clearUserSession } from "@/features/auth/hooks/session";
+import { invalidateUserAuthentication } from "@/features/auth/hooks/authenticate";
 
 export const logout = async () => {
-  await clearUserSession();
+  await invalidateUserAuthentication();
   window.location.href = "/logout";
 };
 

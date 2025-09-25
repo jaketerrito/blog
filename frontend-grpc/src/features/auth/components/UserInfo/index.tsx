@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { LoginButton } from "@/features/auth/components/LoginButton";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
-import { AuthContext } from "@/features/auth/context";
+import { UserAuthenticationContext } from "@/features/auth/context";
 
 export function UserInfo() {
-  const authContext = useContext(AuthContext);
+  const userAuthenticationContext = useContext(UserAuthenticationContext);
 
-  if (authContext === null) {
+  if (userAuthenticationContext === null) {
     return <LoginButton />;
   }
-  const { userEmail } = authContext;
+  const { userEmail } = userAuthenticationContext;
 
   return (
     <div>

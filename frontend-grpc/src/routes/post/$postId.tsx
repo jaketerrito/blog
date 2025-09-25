@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getPost } from "@/features/posts/hooks";
 import { Post } from "@/features/posts/components";
@@ -21,5 +21,10 @@ function RouteComponent() {
   if (!post) {
     return <div>404 - Post not found</div>;
   }
-  return <Post post={post} />;
+  return (
+    <div>
+      <Post post={post} />
+      <Outlet />
+    </div>
+  );
 }

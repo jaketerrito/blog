@@ -6,8 +6,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { getAuthContext } from "@/features/auth/hooks/session";
-import { AuthContextProvider } from "@/features/auth/context";
+import { createUserAuthenticationContext } from "@/features/auth/hooks/authenticate";
+import { UserAuthenticationContext } from "@/features/auth/context";
 import { Navbar } from "@/components";
 
 export const Route = createRootRoute({
@@ -29,22 +29,22 @@ export const Route = createRootRoute({
   notFoundComponent: () => <div>This a custom Page not found</div>,
   loader: async () => {
     return {
-      authContext: await getAuthContext(),
+      userAuthenticationContext: await createUserAuthenticationContext(),
     };
   },
 });
 
 function RootComponent() {
-  const { authContext } = Route.useLoaderData();
+  const { userAuthenticationContext } = Route.useLoaderData();
   return (
-    <AuthContextProvider authContext={authContext}>
+    <UserAuthenticationContext.Provider value={userAuthenticationContext}>
       <RootDocument>
         <Navbar />
         <main>
           <Outlet />
         </main>
       </RootDocument>
-    </AuthContextProvider>
+    </UserAuthenticationContext.Provider>
   );
 }
 

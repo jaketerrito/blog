@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { login } from "@/features/auth/hooks/session";
+import { authenticate } from "@/features/auth/hooks/authenticate";
 
 export const Route = createFileRoute("/login/")({
   validateSearch: (search: Record<string, unknown>) => {
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/login/")({
   },
   loaderDeps: ({ search: { redirectPath } }) => ({ redirectPath }),
   loader: async ({ deps: { redirectPath } }) => {
-    await login();
+    await authenticate();
     throw redirect({ to: redirectPath });
   },
 });

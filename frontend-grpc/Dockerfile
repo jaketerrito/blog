@@ -1,4 +1,4 @@
-FROM node:22 AS development
+FROM node:24-alpine3.22 AS development
 WORKDIR /frontend
 COPY package.json package-lock.json ./
 RUN npm ci
@@ -8,7 +8,7 @@ CMD ["npm", "run", "dev"]
 FROM development AS builder
 RUN npm run build
 
-FROM node:22-alpine AS production
+FROM node:24-alpine3.22 AS production
 WORKDIR /frontend
 # Copy only the built output from the builder stage
 COPY --from=builder /frontend/.output ./.output
