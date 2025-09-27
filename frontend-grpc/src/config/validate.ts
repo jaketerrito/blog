@@ -6,3 +6,4 @@ for (const key of requiredServerEnv) {
     throw new Error(`Missing required environment variable: ${key}`);
   }
 }
+//TODO this doesnt do anything
