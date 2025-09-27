@@ -11,3 +11,9 @@ export function useCanCreate(
 ): boolean {
   return !!userAuthenticationData;
 }
+
+export function useCanDelete(
+  userAuthenticationData: UserAuthenticationData | null,
+): boolean {
+  return !!userAuthenticationData;
+}

@@ -14,7 +14,7 @@ const useCreatePostServerFn = createServerFn().handler(async () => {
   return id;
 });
 
-const useCreatePost = () => {
+export const useCreatePost = () => {
   const createPost = useServerFn(useCreatePostServerFn);
   const router = useRouter();
   const mutation = useMutation({
@@ -27,5 +27,3 @@ const useCreatePost = () => {
   });
   return mutation;
 };
-
-export { useCreatePost };

@@ -1,7 +1,12 @@
-import { useCanEdit, UserAuthenticationContext } from "@/features/auth";
+import {
+  useCanDelete,
+  useCanEdit,
+  UserAuthenticationContext,
+} from "@/features/auth";
 import { Post as PostType } from "@/generated/proto/posts";
 import { Link } from "@tanstack/react-router";
 import { useContext } from "react";
+import { DeletePostButton } from "./DeletePostButton";
 
 interface PostProps {
   post: PostType;
@@ -26,6 +31,7 @@ function formatDate(date: Date | undefined): string {
 export function Post({ post }: PostProps) {
   const authContext = useContext(UserAuthenticationContext);
   const canEdit = useCanEdit(authContext);
+  const canDelete = useCanDelete(authContext);
   return (
     <div>
       <h1>{post.title || "No title"}</h1>
@@ -37,6 +43,7 @@ export function Post({ post }: PostProps) {
           Edit
         </Link>
       )}
+      {canDelete && <DeletePostButton postId={post.id} />}
     </div>
   );
 }
