@@ -22,7 +22,7 @@ export const useCreatePost = () => {
       const postId = await createPost();
       // Invalidate all routes to refresh post previews (TODO: not necessary if we navigate away?)
       // await router.invalidate();
-      router.navigate({ to: "/post/$postId/edit", params: { postId } });
+      router.navigate({ to: "/post/edit/$postId", params: { postId } });
     },
   });
   return mutation;

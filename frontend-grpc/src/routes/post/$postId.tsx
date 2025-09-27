@@ -1,5 +1,6 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { usePostServerFn, Post } from "@/features/posts";
+import { EditPostButton } from "@/features/posts/components/EditPostButton";
 
 export const Route = createFileRoute("/post/$postId")({
   component: RouteComponent,
@@ -13,10 +14,11 @@ function RouteComponent() {
   if (!post) {
     return <div>404 - Post not found</div>;
   }
+  
   return (
     <div>
       <Post post={post} />
-      <Outlet />
+      <EditPostButton postId={post.id} />
     </div>
   );
 }
