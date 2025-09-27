@@ -33,7 +33,7 @@ export const authenticate = createServerFn().handler(async () => {
   }
 });
 
-export const createUserAuthenticationContext = createServerFn().handler(
+export const getUserAuthData = createServerFn().handler(
   async (): Promise<UserAuthenticationData | null> => {
     const session = await getUserAuthenticationSession();
 

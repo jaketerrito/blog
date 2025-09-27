@@ -6,7 +6,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { createUserAuthenticationContext } from "@/features/auth/hooks/authenticate";
+import { getUserAuthData } from "@/features/auth/hooks/authenticate";
 import { UserAuthenticationContext } from "@/features/auth/context";
 import { Navbar } from "@/components";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -30,17 +30,17 @@ export const Route = createRootRoute({
   notFoundComponent: () => <div>This a custom Page not found</div>,
   loader: async () => {
     return {
-      userAuthenticationContext: await createUserAuthenticationContext(),
+      userAuthenticationData: await getUserAuthData(),
     };
   },
 });
 
 function RootComponent() {
-  const { userAuthenticationContext } = Route.useLoaderData();
+  const { userAuthenticationData } = Route.useLoaderData();
   const queryClient = new QueryClient();
 
   return (
-    <UserAuthenticationContext.Provider value={userAuthenticationContext}>
+    <UserAuthenticationContext.Provider value={userAuthenticationData}>
       <QueryClientProvider client={queryClient}>
         <RootDocument>
           <Navbar />

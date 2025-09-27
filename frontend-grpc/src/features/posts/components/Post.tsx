@@ -1,6 +1,7 @@
-import { useCanEdit } from "@/features/auth";
+import { useCanEdit, UserAuthenticationContext } from "@/features/auth";
 import { Post as PostType } from "@/generated/proto/posts";
 import { Link } from "@tanstack/react-router";
+import { useContext } from "react";
 
 interface PostProps {
   post: PostType;
@@ -23,7 +24,8 @@ function formatDate(date: Date | undefined): string {
 }
 
 export function Post({ post }: PostProps) {
-  const canEdit = useCanEdit();
+  const authContext = useContext(UserAuthenticationContext);
+  const canEdit = useCanEdit(authContext);
   return (
     <div>
       <h1>{post.title || "No title"}</h1>

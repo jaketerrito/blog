@@ -1,18 +1,13 @@
-import { useContext } from "react";
-import { UserAuthenticationContext } from "../context/UserAuthenticationContext";
+import { UserAuthenticationData } from "..";
 
-export function useCanEdit(): boolean {
-  const authenticationContext = useContext(UserAuthenticationContext);
-  if (!authenticationContext) {
-    return false;
-  }
-  return authenticationContext.userEmail !== null;
+export function useCanEdit(
+  userAuthenticationData: UserAuthenticationData | null,
+): boolean {
+  return !!userAuthenticationData;
 }
 
-export function useCanCreate(): boolean {
-  const authenticationContext = useContext(UserAuthenticationContext);
-  if (!authenticationContext) {
-    return false;
-  }
-  return authenticationContext.userEmail !== null;
+export function useCanCreate(
+  userAuthenticationData: UserAuthenticationData | null,
+): boolean {
+  return !!userAuthenticationData;
 }
