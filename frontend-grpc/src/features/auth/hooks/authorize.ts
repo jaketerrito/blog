@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { UserAuthenticationContext } from "../context/UserAuthenticationContext";
-import { createIsomorphicFn } from "@tanstack/react-start";
 
 export function useCanEdit(): boolean {
   const authenticationContext = useContext(UserAuthenticationContext);
@@ -9,7 +8,6 @@ export function useCanEdit(): boolean {
   }
   return authenticationContext.userEmail !== null;
 }
-
 
 export function useCanCreate(): boolean {
   const authenticationContext = useContext(UserAuthenticationContext);

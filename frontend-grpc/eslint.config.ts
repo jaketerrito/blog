@@ -30,9 +30,9 @@ export default defineConfig([
       "@typescript-eslint/no-namespace": [
         "error",
         {
-          "allowDeclarations": true,
-          "allowDefinitionFiles": true
-        }
+          allowDeclarations: true,
+          allowDefinitionFiles: true,
+        },
       ],
     },
   },

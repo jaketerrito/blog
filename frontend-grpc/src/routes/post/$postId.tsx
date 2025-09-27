@@ -1,7 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { usePostServerFn, Post } from "@/features/posts";
 
-
 export const Route = createFileRoute("/post/$postId")({
   component: RouteComponent,
   loader: async ({ params }) => {

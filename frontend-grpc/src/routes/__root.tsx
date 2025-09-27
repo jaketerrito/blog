@@ -37,7 +37,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const { userAuthenticationContext } = Route.useLoaderData();
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient();
 
   return (
     <UserAuthenticationContext.Provider value={userAuthenticationContext}>

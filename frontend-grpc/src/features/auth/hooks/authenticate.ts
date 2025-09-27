@@ -5,7 +5,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest, useSession } from "@tanstack/react-start/server";
 import { UserAuthenticationData } from "..";
 
-// TODO: upgrade so we can use useSesssion from react-start + createServerOnlyFn(fn)	
+// TODO: upgrade so we can use useSesssion from react-start + createServerOnlyFn(fn)
 const getUserAuthenticationSession = () => {
   return useSession<UserAuthenticationData>({
     name: "auth",
