@@ -1,8 +1,6 @@
 import { createContext } from "react";
+import { UserAuthenticationData } from "..";
 
-export interface UserAuthenticationContextValue {
-  userEmail: string;
-}
 
 export const UserAuthenticationContext =
-  createContext<UserAuthenticationContextValue | null>(null);
+  createContext<UserAuthenticationData | null>(null);

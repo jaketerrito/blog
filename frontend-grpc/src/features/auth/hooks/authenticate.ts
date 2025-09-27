@@ -3,17 +3,13 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest, useSession } from "@tanstack/react-start/server";
-import { UserAuthenticationContextValue } from "@/features/auth/context/UserAuthenticationContext";
+import { UserAuthenticationData } from "..";
 
-interface UserAuthenticationData {
-  userEmail: string;
-}
-
-// TODO: provide secret for password
+// TODO: upgrade so we can use useSesssion from react-start + createServerOnlyFn(fn)	
 const getUserAuthenticationSession = () => {
   return useSession<UserAuthenticationData>({
     name: "auth",
-    password: "wowthisisasasdfn321pin4i21n4i21n4",
+    password: process.env.AUTH_SESSION_SECRET,
   });
 };
 
@@ -38,7 +34,7 @@ export const authenticate = createServerFn().handler(async () => {
 });
 
 export const createUserAuthenticationContext = createServerFn().handler(
-  async (): Promise<UserAuthenticationContextValue | null> => {
+  async (): Promise<UserAuthenticationData | null> => {
     const session = await getUserAuthenticationSession();
 
     if (!session.data.userEmail) {

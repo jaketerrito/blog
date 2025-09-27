@@ -1,18 +1,13 @@
 // src/routes/index.tsx
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { postsClient } from "@/lib/grpc/posts";
-
-export const getPostPreviews = createServerFn().handler(async () => {
-  const { previews } = await postsClient.getPostPreviews({});
-  return previews;
-});
+import { createFileRoute } from "@tanstack/react-router";
+import { usePostPreviewsServerFn, PostPreview } from "@/features/posts";
+import { NewPostButton } from "@/features/posts/components/NewPostButton";
 
 export const Route = createFileRoute("/")({
   component: Home,
   loader: async () => {
     return {
-      postPreviews: await getPostPreviews(),
+      postPreviews: await usePostPreviewsServerFn(),
     };
   },
 });
@@ -26,11 +21,10 @@ function Home() {
       <h1>Posts</h1>
       {postPreviews.map((postPreview) => (
         <div key={postPreview.id}>
-          <Link to={"/post/$postId"} params={{ postId: postPreview.id }}>
-            {postPreview.title || "Untitled"}
-          </Link>
+          <PostPreview postPreview={postPreview} />
         </div>
       ))}
+      <NewPostButton />
     </div>
   );
 }

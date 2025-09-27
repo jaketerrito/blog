@@ -9,6 +9,7 @@ import {
 import { createUserAuthenticationContext } from "@/features/auth/hooks/authenticate";
 import { UserAuthenticationContext } from "@/features/auth/context";
 import { Navbar } from "@/components";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -36,14 +37,18 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const { userAuthenticationContext } = Route.useLoaderData();
+  const queryClient = new QueryClient()
+
   return (
     <UserAuthenticationContext.Provider value={userAuthenticationContext}>
-      <RootDocument>
-        <Navbar />
-        <main>
-          <Outlet />
-        </main>
-      </RootDocument>
+      <QueryClientProvider client={queryClient}>
+        <RootDocument>
+          <Navbar />
+          <main>
+            <Outlet />
+          </main>
+        </RootDocument>
+      </QueryClientProvider>
     </UserAuthenticationContext.Provider>
   );
 }

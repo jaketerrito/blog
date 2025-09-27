@@ -4,7 +4,7 @@ import {
   PostsServiceDefinition,
 } from "@/generated/proto/posts";
 
-const API_URL = process.env.POSTS_API_URL || "localhost:50051";
+const API_URL = process.env.POSTS_API_URL;
 
 const channel = createChannel(API_URL);
 

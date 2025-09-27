@@ -26,6 +26,14 @@ export default defineConfig([
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",
+      // Allow namespaces in declaration files and for global augmentation
+      "@typescript-eslint/no-namespace": [
+        "error",
+        {
+          "allowDeclarations": true,
+          "allowDefinitionFiles": true
+        }
+      ],
     },
   },
 ]);

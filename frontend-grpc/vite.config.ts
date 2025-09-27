@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
+import "./src/config/validate"; // Import validation to ensure it runs on server startup
 
 export default defineConfig({
   server: {
