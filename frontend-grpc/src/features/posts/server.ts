@@ -1,9 +1,10 @@
 import { getUserAuthData } from "@/features/auth";
 import { createServerFn } from "@tanstack/react-start";
-import { canCreate, canDelete } from "./utils";
+import { canCreate, canDelete, canEdit } from "./utils";
 import {
   PostsServiceClient,
   PostsServiceDefinition,
+  UpdatePostRequest,
 } from "@/generated/proto/posts";
 import { createChannel, createClient } from "nice-grpc";
 
@@ -43,4 +44,15 @@ export const deletePost = createServerFn()
       throw new Error("User cannot delete posts");
     }
     await postsClient.deletePost({ id });
+  });
+
+export const updatePost = createServerFn()
+  .validator((data: UpdatePostRequest) => data)
+  .handler(async ({ data }) => {
+    const authContext = await getUserAuthData();
+    const userCanEdit = canEdit(authContext);
+    if (!userCanEdit) {
+      throw new Error("User cannot edit posts");
+    }
+    await postsClient.updatePost(data);
   });

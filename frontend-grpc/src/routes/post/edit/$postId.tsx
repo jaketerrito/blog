@@ -1,25 +1,42 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { canEdit } from "@/features/posts/utils";
-import { useContext } from "react";
-import { UserAuthenticationContext } from "@/features/auth";
-import { DeletePostButton } from "@/features/posts/components/DeletePostButton";
+import { getUserAuthData } from "@/features/auth";
+import { getPost } from "@/features/posts";
+import { EditPost, DeletePostButton } from "@/features/posts/components";
 
 export const Route = createFileRoute("/post/edit/$postId")({
-  component: EditPost,
+  beforeLoad: async ({ params }) => {
+    const userAuthData = await getUserAuthData();
+    const userCanEdit = canEdit(userAuthData);
+    if (userCanEdit === false) {
+      throw redirect({
+        to: "/post/$postId",
+        params: { postId: params.postId },
+      });
+    }
+  },
+  loader: async ({ params }) => {
+    const post = await getPost({ data: params.postId });
+    if (!post) {
+      throw redirect({ to: "/", params: { postId: params.postId } });
+    }
+    return post;
+  },
+  component: EditPostPage,
 });
 
-function EditPost() {
-  const authContext = useContext(UserAuthenticationContext);
-  const userCanEdit = canEdit(authContext);
-  if (userCanEdit === false) {
-    return <div>Not authorized</div>;
-  }
-  const { postId } = Route.useParams();
+function EditPostPage() {
+  const post = Route.useLoaderData();
+  const navigate = useNavigate();
+
+  const handleSuccess = () => {
+    navigate({ to: "/post/$postId", params: { postId: post.id } });
+  };
 
   return (
     <div>
-      <h2>Edit Post {postId}</h2>
-      <DeletePostButton postId={postId} />
+      <EditPost post={post} onSuccess={handleSuccess} />
+      <DeletePostButton postId={post.id} />
     </div>
   );
 }
