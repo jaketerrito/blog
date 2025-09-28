@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCanEdit } from "@/features/auth/hooks/authorize";
+import { canEdit } from "@/features/posts/utils";
 import { useContext } from "react";
 import { UserAuthenticationContext } from "@/features/auth";
 import { DeletePostButton } from "@/features/posts/components/DeletePostButton";
@@ -10,8 +10,8 @@ export const Route = createFileRoute("/post/edit/$postId")({
 
 function EditPost() {
   const authContext = useContext(UserAuthenticationContext);
-  const canEdit = useCanEdit(authContext);
-  if (canEdit === false) {
+  const userCanEdit = canEdit(authContext);
+  if (userCanEdit === false) {
     return <div>Not authorized</div>;
   }
   const { postId } = Route.useParams();

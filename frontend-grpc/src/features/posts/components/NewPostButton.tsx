@@ -1,11 +1,12 @@
-import { useCanCreate, UserAuthenticationContext } from "@/features/auth";
+import { canCreate } from "../utils";
+import { UserAuthenticationContext } from "@/features/auth";
 import { useCreatePost } from "../hooks";
 import { useContext } from "react";
 
 export const NewPostButton = () => {
   const authContext = useContext(UserAuthenticationContext);
-  const canCreate = useCanCreate(authContext);
-  if (!canCreate) {
+  const userCanCreate = canCreate(authContext);
+  if (!userCanCreate) {
     return null;
   }
   const { mutate: createPost } = useCreatePost();

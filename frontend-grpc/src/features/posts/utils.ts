@@ -1,18 +1,19 @@
-import { UserAuthenticationData } from "..";
+import { UserAuthenticationData } from "@/features/auth/types";
 
-export function useCanEdit(
+// Permission utility functions for posts
+export function canEdit(
   userAuthenticationData: UserAuthenticationData | null,
 ): boolean {
   return !!userAuthenticationData;
 }
 
-export function useCanCreate(
+export function canCreate(
   userAuthenticationData: UserAuthenticationData | null,
 ): boolean {
   return !!userAuthenticationData;
 }
 
-export function useCanDelete(
+export function canDelete(
   userAuthenticationData: UserAuthenticationData | null,
 ): boolean {
   return !!userAuthenticationData;

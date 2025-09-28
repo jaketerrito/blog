@@ -1,14 +1,15 @@
-import { useCanDelete, UserAuthenticationContext } from "@/features/auth";
+import { canDelete } from "../utils";
+import { UserAuthenticationContext } from "@/features/auth";
 import { useDeletePost } from "../hooks";
 import { useContext } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
 export const DeletePostButton = ({ postId }: { postId: string }) => {
   const authContext = useContext(UserAuthenticationContext);
-  const canDelete = useCanDelete(authContext);
+  const userCanDelete = canDelete(authContext);
   const navigate = useNavigate();
 
-  if (!canDelete) {
+  if (!userCanDelete) {
     return null;
   }
 

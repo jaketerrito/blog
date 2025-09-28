@@ -1,4 +1,4 @@
-import { invalidateUserAuthentication } from "@/features/auth/hooks/authenticate";
+import { invalidateUserAuthentication } from "@/features/auth";
 
 export const logout = async () => {
   await invalidateUserAuthentication();

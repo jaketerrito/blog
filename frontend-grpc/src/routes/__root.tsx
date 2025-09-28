@@ -6,10 +6,10 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { getUserAuthData } from "@/features/auth/hooks/authenticate";
 import { UserAuthenticationContext } from "@/features/auth/context";
 import { Navbar } from "@/components";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { getUserAuthData } from "@/features/auth";
 
 export const Route = createRootRoute({
   head: () => ({
