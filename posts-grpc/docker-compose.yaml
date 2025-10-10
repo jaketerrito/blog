@@ -12,15 +12,13 @@ services:
     ports:
       - "50051:50051"
     environment:
-      MONGO_DB: admin
-      MONGO_USER: root
-      MONGO_PASSWORD: example
-      MONGO_HOST: db
-      MONGO_PORT: 27017
       PORT: 50051
+      DATABASE_URL: postgres:postgres@db:5432/blog_db
     depends_on:
-      - db
-      - grpcui
+      db:
+        condition: service_healthy
+      grpcui:
+        condition: service_started
     tty: true
     stdin_open: true
     logging:
@@ -31,13 +29,20 @@ services:
     networks:
       - blog_network
   db:
-    image: mongo:latest
-    restart: unless-stopped
-    volumes:
-      - db-data:/data/db
+    image: postgres:18.0-bookworm
+    restart: always
+    # volumes:
+    #   - db-data:/var/lib/postgresql
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: blog_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 80s
     networks:
       - blog_network
   grpcui:

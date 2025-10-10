@@ -14,3 +14,6 @@ All commands run through docker compose and just
 ## [grpcui](https://github.com/fullstorydev/grpcui)
 This runs as a sidecar to the posts service and exposes ui for testing grpc methods.
 Accessible at `localhost:8081`
+
+TODO: backups of data
+TODO: postgres because cnpg is amazing?: -- alembic --update isn't working

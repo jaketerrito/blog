@@ -1,22 +1,30 @@
+from typing import Generator
 import pytest
-import mongomock
-from mongoengine import connect, disconnect
+from sqlalchemy import create_engine
+from src.database.model.post import Post
+from sqlalchemy.orm import scoped_session, sessionmaker, Session
 
 
-@pytest.fixture(scope="session", autouse=True)
-def mongo_connection():
-    connect(
-        "test_db", host="mongodb://localhost", mongo_client_class=mongomock.MongoClient
-    )
-    yield
-    disconnect()
+@pytest.fixture(scope='session')
+def session_factory():
+    """yields a SQLAlchemy engine which is suppressed after the test session"""
+    engine = create_engine(
+        "sqlite://",
+        echo=True,
+    ) 
+    Post.metadata.create_all(engine)
+
+    yield scoped_session(sessionmaker(bind=engine))
+
+    engine.dispose()
 
 
-@pytest.fixture(autouse=True)
-def clear_database():
-    # Clear all collections before each test
-    from mongoengine.connection import get_db
 
-    db = get_db()
-    for collection in db.list_collection_names():
-        db.drop_collection(collection)
+@pytest.fixture(scope='function')
+def session(session_factory) -> Generator[Session]:
+    """yields a SQLAlchemy connection which is rollbacked after the test"""
+    session = session_factory()
+
+    yield session
+
+    session.close()

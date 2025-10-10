@@ -1,17 +1,19 @@
-from datetime import datetime, timezone
-from mongoengine import Document, StringField, DateTimeField
+from datetime import datetime
+from typing import Optional
+from sqlalchemy import  DateTime, String, func
+from sqlalchemy.dialects.postgresql import UUID
 
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+import uuid
 
-def get_current_time() -> datetime:
-    return datetime.now(timezone.utc)
+class Base(DeclarativeBase):
+    pass
 
+class Post(Base):
+    __tablename__ = "posts"
+    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    title: Mapped[Optional[str]] = mapped_column(String)
+    content: Mapped[Optional[str]] = mapped_column(String)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
 
-class Post(Document):
-    title = StringField(required=False)
-    content = StringField(required=False)
-    created_at = DateTimeField(required=True, default=get_current_time)
-    updated_at = DateTimeField(required=True, default=get_current_time)
-
-    def save(self, *args, **kwargs):
-        self.updated_at = get_current_time()
-        return super().save(*args, **kwargs)
