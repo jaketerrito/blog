@@ -15,8 +15,10 @@ All commands run through docker compose and just
 This runs as a sidecar to the posts service and exposes ui for testing grpc methods.
 Accessible at `localhost:8081`
 
-TODO: backups of data
-TODO: postgres because cnpg is amazing?: -- alembic --update isn't working
+# Database Models
+Managed using [alembic](https://alembic.sqlalchemy.org/en/latest/index.html)
+- `just make-migrations` to generate new migrations
+- `just migrate` to apply the migrations
 
-TODO: simplify this whole thing
-https://github.com/mdzhang/grpc-python-example/blob/master/grpc_python_example/services/implementations/item_master.py
+TODO: deploy, migrate as part of deployment
+TODO: backups of data
