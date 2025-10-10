@@ -1,11 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from src import config
+from sqlalchemy.dialects import registry
 
 
 def create_database_engine():
+    registry.register(
+        "postgres", "sqlalchemy.dialects.postgresql.psycopg", "PGDialect_psycopg"
+    )
     engine = create_engine(
-        f"postgresql+psycopg://{config.DATABASE_URL}",
+        config.DATABASE_URI,
         echo=config.DEBUG,
         pool_pre_ping=True,
     )
