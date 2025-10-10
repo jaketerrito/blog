@@ -1,13 +1,12 @@
 from concurrent import futures
 import grpc
-from src.service.PostsServicer import PostsServicer
+from src.PostsServicer import PostsServicer
 import src.proto.posts_pb2_grpc as posts_pb2_grpc
 
 from src.database.connection import create_database_session_factory
 from src.interceptor.ErrorLogger import ErrorLogger
 from grpc_reflection.v1alpha import reflection
 from src.proto.posts_pb2 import DESCRIPTOR
-from src.repository.PostsRepository import PostsRepository
 from src import config
 import logging
 
@@ -17,15 +16,14 @@ logger = logging.getLogger(__name__)
 def serve():
     # Create session factory
     SessionFactory = create_database_session_factory()
-    
+
     try:
         server = grpc.server(
-            futures.ThreadPoolExecutor(max_workers=10), 
-            interceptors=[ErrorLogger()]
+            futures.ThreadPoolExecutor(max_workers=10), interceptors=[ErrorLogger()]
         )
-        
+
         posts_pb2_grpc.add_PostsServiceServicer_to_server(
-            PostsServicer(SessionFactory, PostsRepository), server
+            PostsServicer(SessionFactory), server
         )
 
         # Reflection allows grpcui to discover methods, exposing this on internet maybe not good idea
@@ -44,6 +42,7 @@ def serve():
     except Exception as e:
         logger.error(f"Error in serve(): {e}")
         import traceback
+
         traceback.print_exc()
 
 

@@ -17,3 +17,6 @@ Accessible at `localhost:8081`
 
 TODO: backups of data
 TODO: postgres because cnpg is amazing?: -- alembic --update isn't working
+
+TODO: simplify this whole thing
+https://github.com/mdzhang/grpc-python-example/blob/master/grpc_python_example/services/implementations/item_master.py

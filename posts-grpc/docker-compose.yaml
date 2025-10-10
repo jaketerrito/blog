@@ -31,8 +31,8 @@ services:
   db:
     image: postgres:18.0-bookworm
     restart: always
-    # volumes:
-    #   - db-data:/var/lib/postgresql
+    volumes:
+      - db-data:/var/lib/postgresql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

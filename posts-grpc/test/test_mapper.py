@@ -1,6 +1,7 @@
 from datetime import datetime
-from src.util.mapper import post_model_to_post_proto, post_model_to_post_preview_proto
+from src.mapper import post_model_to_post_proto, post_model_to_post_preview_proto
 from src.database.model.post import Post
+
 
 def test_post_model_to_post_proto():
     post_model = Post(
