@@ -1,12 +1,18 @@
-from mongoengine import connect
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from src import config
 
 
-def init_db_connection():
-    connect(
-        db=config.MONGO_DB,
-        host=config.MONGO_HOST,
-        port=int(config.MONGO_PORT),
-        username=config.MONGO_USER,
-        password=config.MONGO_PASSWORD,
+def create_database_engine():
+    engine = create_engine(
+        f"postgresql+psycopg://{config.DATABASE_URL}",
+        echo=config.DEBUG,
+        pool_pre_ping=True,
     )
+    return engine
+
+
+def create_database_session_factory():
+    """Create database engine and session factory"""
+    engine = create_database_engine()
+    return sessionmaker(bind=engine)

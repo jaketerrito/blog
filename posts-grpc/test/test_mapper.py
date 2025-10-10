@@ -1,13 +1,15 @@
-from src.util.mapper import post_model_to_post_proto, post_model_to_post_preview_proto
+from datetime import datetime
+from src.mapper import post_model_to_post_proto, post_model_to_post_preview_proto
 from src.database.model.post import Post
-from bson import ObjectId
 
 
 def test_post_model_to_post_proto():
     post_model = Post(
-        id=ObjectId(),
+        id="id",
         title="Test Post",
         content="Test Content",
+        created_at=datetime.now(),
+        updated_at=datetime.now(),
     )
     proto_post = post_model_to_post_proto(post_model)
     assert proto_post.id == str(post_model.id)
@@ -25,7 +27,7 @@ def test_post_model_to_post_proto():
 
 def test_post_model_to_post_preview_proto():
     post_model = Post(
-        id=ObjectId(),
+        id="id",
         title="Test Post",
         content="Test Content",
     )
