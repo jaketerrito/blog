@@ -38,7 +38,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: blog_db
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d blog_db"]
       interval: 10s
       timeout: 10s
       retries: 5
