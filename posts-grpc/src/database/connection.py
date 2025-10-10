@@ -8,7 +8,7 @@ def create_database_session_factory():
     """Create database engine and session factory"""
     engine = create_engine(
         f"postgresql+psycopg://{config.DATABASE_URL}",
-        echo=True,
+        echo=config.DEBUG,
         pool_pre_ping=True,
     )
     Post.metadata.create_all(engine)
