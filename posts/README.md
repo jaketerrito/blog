@@ -1,28 +1,21 @@
-# blog-post-service
-Service for managing blog posts
-
-# Prerequisites
-- pyenv installed
-- `make configure_local_python`
-
-https://github.com/Kludex/fastapi-tips
-https://github.com/zhanymkanov/fastapi-best-practices
-## How to Use Docker Setup
-
-This project is configured with Docker to simplify development and deployment. The setup includes separate configurations for development and production environments.
-
-## Run local server
-`fastapi dev src/main.py`
-spins up dev server with auto reload
-
-## Test
-`pytest`
-
-## Prod deploy notes
-`fastapi run src/main.py` 
-Runs server, using uvicorn
+# Dependencies
+- [docker desktop](https://docs.docker.com/desktop/)
+- [just](https://github.com/casey/just)
+- [uv](https://docs.astral.sh/uv/)
 
 
-## Code Linting and Formatting
-Ruff is used for linting and formatting.
-https://docs.astral.sh/ruff/
+https://realpython.com/python-microservices-grpc/#best-practices
+
+# Local Development
+All commands run through docker compose and just
+`just --list`
+
+# Debugging
+## [grpcui](https://github.com/fullstorydev/grpcui)
+This runs as a sidecar to the posts service and exposes ui for testing grpc methods.
+Accessible at `localhost:8081`
+
+# Database Models
+Managed using [alembic](https://alembic.sqlalchemy.org/en/latest/index.html)
+- `just make-migrations` to generate new migrations
+- `just migrate` to apply the migrations

@@ -7,10 +7,6 @@
         {
             "path": "frontend",
             "name": "Frontend"
-        },
-        {
-            "path": "posts-grpc",
-            "name": "Posts GRPC"
         }
     ]
 }

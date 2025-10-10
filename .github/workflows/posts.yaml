@@ -3,13 +3,16 @@ name: Posts CI
 on:
   push:
     paths:
-      - 'posts-grpc/**'
+      - 'posts/**'
       - 'proto/posts/**'
-      - '.github/workflows/posts-grpc.yaml'
+      - '.github/workflows/posts.yaml'
 
 jobs:
   ci:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./posts
     permissions:
       contents: read
       packages: write
@@ -23,29 +26,21 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build image
-      run: |
-        cd posts-grpc
-        just build
+      run: just build
 
     - name: Generate proto
-      run: |
-        cd posts-grpc
-        just proto
+      run: just proto
 
     - name: Ruff checks
-      run: |
-        cd posts-grpc
-        just check
+      run: just check
 
     - name: Test
-      run: |
-        cd posts-grpc
-        just test
+      run: just test
 
     - name: Get Cover 
       uses: orgoro/coverage@v3.2
       with:
-        coverageFile: posts-grpc/coverage.xml
+        coverageFile: posts/coverage.xml
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Log in to GitHub Container Registry
@@ -70,13 +65,13 @@ jobs:
            type=sha,format=short
            type=raw,value=latest,enable={{is_default_branch}}
          labels: |
-           org.opencontainers.image.source=https://github.com/jaketerrito/blog/posts-grpc
-           org.opencontainers.image.url=https://github.com/jaketerrito/blog/posts-grpc
+           org.opencontainers.image.source=https://github.com/jaketerrito/blog/posts
+           org.opencontainers.image.url=https://github.com/jaketerrito/blog/posts
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
-        context: posts-grpc
+        context: posts
         target: production
         push: true
         tags: ${{ steps.meta.outputs.tags }}

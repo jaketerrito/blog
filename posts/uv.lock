@@ -260,7 +260,7 @@ wheels = [
 ]
 
 [[package]]
-name = "posts-grpc"
+name = "posts"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

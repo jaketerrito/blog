@@ -1,6 +1,7 @@
-line-length=88
+exclude = [
+    "**/proto/*",
+    ".venv"
+]
 
-[lint]
-select = ["E", "F"]
-
-[format]
+# Line length
+line-length = 88

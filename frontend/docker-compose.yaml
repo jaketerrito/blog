@@ -5,7 +5,9 @@ services:
       dockerfile: Dockerfile
       target: development
     environment:
-      - POSTS_API_URL=http://posts-api:8000
+      - POSTS_API_URL=http://posts:50051
+      - DEV_USER=local@test.com
+      - AUTH_SESSION_SECRET=OGaEIw8Ee75cNguIvGZVE9aKuO9NINJP
     ports:
       - "5173:5173"
       - "3000:3000"
@@ -13,10 +15,10 @@ services:
       - ./:/frontend
       - node_modules:/frontend/node_modules
     networks:
-      - posts_default
+      - blog_network
 volumes:
   node_modules:
 
 networks:
-  posts_default:
-    external: true
+  blog_network:
+    name: blog_network

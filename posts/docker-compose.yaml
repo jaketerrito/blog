@@ -1,25 +1,61 @@
 services:
   development:
-    container_name: posts-api
-    build: 
-      context: ./
+    container_name: posts
+    volumes:
+      - .:/app
+      - /app/.venv
+    build:
+      context: .
       dockerfile: Dockerfile
-      target: development
-    depends_on:
-      - db
-    environment:
-      DB_URI: mongodb://root:example@db:27017
+      target: development  # Changed from production to development
+    command: ["pymon", "--watch", "src/**/*.py", "src/server.py"]
     ports:
-      - "8000:8000"
-    volumes:
-      - ./:/posts
-  db:
-    image: mongo:latest
-    restart: unless-stopped
-    volumes:
-      - db-data:/data/db
+      - "50051:50051"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example 
+      DEBUG: True
+      PORT: 50051
+      DATABASE_URI: postgresql://postgres:postgres@db:5432/blog_db
+    depends_on:
+      db:
+        condition: service_healthy
+      grpcui:
+        condition: service_started
+    tty: true
+    stdin_open: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - blog_network
+  db:
+    image: postgres:18.0-bookworm
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: blog_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d blog_db"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 80s
+    networks:
+      - blog_network
+  grpcui:
+    image: fullstorydev/grpcui:latest
+    ports:
+      - "8081:8081"
+    command: -bind=0.0.0.0 -port=8081 -connect-fail-fast=false -plaintext posts:50051
+    networks:
+      - blog_network
 volumes:
   db-data:
+
+networks:
+  blog_network:
+    name: blog_network
