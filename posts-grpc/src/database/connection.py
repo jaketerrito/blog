@@ -6,7 +6,7 @@ from sqlalchemy.dialects import registry
 
 def create_database_engine():
     registry.register(
-        "postgres", "sqlalchemy.dialects.postgresql.psycopg", "PGDialect_psycopg"
+        "postgresql", "sqlalchemy.dialects.postgresql.psycopg", "PGDialect_psycopg"
     )
     engine = create_engine(
         config.DATABASE_URI,
