@@ -17,12 +17,11 @@ function Home() {
 
   return (
     <div>
-      <br />
       <h1>Posts</h1>
       {postPreviews.map((postPreview) => (
-        <div key={postPreview.id}>
+      <div key={postPreview.id}>
           <PostPreview postPreview={postPreview} />
-        </div>
+      </div>
       ))}
       <NewPostButton />
     </div>

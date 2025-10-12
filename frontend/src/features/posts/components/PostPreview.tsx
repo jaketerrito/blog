@@ -8,7 +8,6 @@ interface PostPreviewProps {
 export function PostPreview({ postPreview }: PostPreviewProps) {
   return (
     <div>
-      This is a postpreview
       <Link to={"/post/$postId"} params={{ postId: postPreview.id }}>
         {postPreview.title || "Untitled"}
       </Link>

@@ -4,12 +4,10 @@ import { UserInfo } from "@/features/auth/components/UserInfo";
 export function Navbar() {
   return (
     <nav>
-      <div>
+      <h1>
         <Link to="/">Home</Link>
-      </div>
-      <div>
-        <UserInfo />
-      </div>
+      </h1>
+      <UserInfo />
     </nav>
   );
 }
