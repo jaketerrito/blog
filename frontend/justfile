@@ -20,11 +20,11 @@ logs:
 	docker compose logs -f development
 
 # Lint the code
-lint:
+check:
 	docker compose run --rm development npm run lint
 
 # Format the code
-format:
+fix:
 	docker compose run --rm development npm run format
 
 # Generate proto client

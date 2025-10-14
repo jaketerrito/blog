@@ -1,11 +1,11 @@
 /* CSS Variables */
 :root {
-  --color-primary: #FF4500;
-  --color-primary-dark: #CC3700;
-  --color-background: #F5F5F0;
+  --color-primary: #ff4500;
+  --color-primary-dark: #cc3700;
+  --color-background: #f5f5f0;
   --color-text: #000000;
   --color-text-secondary: #666;
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
 }
 
 /* Reset and Base Styles */
@@ -17,14 +17,14 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   background-color: var(--color-background);
   color: var(--color-text);
 }
 
 /* Typography */
 h1 {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   color: var(--color-primary);
 }
 
@@ -80,7 +80,7 @@ nav a:hover {
 
 /* Buttons */
 button {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   background-color: var(--color-primary);
   color: var(--color-background);
   border: 2px solid var(--color-primary);
@@ -102,7 +102,7 @@ button:active {
 /* Forms */
 input,
 textarea {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   padding: 0.5rem;
   border: 2px solid var(--color-primary);
   background-color: var(--color-white);

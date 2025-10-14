@@ -41,7 +41,7 @@ export const EditPost = ({ post, onSuccess }: EditPostProps) => {
           <div style={{ flex: 1 }}>
             <Post post={{ ...post, title, content }} />
           </div>
-          
+
           <div style={{ flex: 1 }}>
             <h3>Edit</h3>
             <div>

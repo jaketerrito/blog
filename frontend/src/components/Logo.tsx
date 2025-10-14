@@ -1,7 +1,3 @@
 export function Logo() {
-  return (
-    <h1>
-      blog.territo.dev
-    </h1>
-  );
+  return <h1>blog.territo.dev</h1>;
 }

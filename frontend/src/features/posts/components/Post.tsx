@@ -1,7 +1,6 @@
 import { Post as PostType } from "@/generated/proto/posts";
 import Markdown from "react-markdown";
 
-
 interface PostProps {
   post: PostType;
 }
