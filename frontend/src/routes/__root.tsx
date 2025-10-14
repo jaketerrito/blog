@@ -25,6 +25,12 @@ export const Route = createRootRoute({
         title: "Territo",
       },
     ],
+    links: [
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap",
+      },
+    ],
   }),
   component: RootComponent,
   notFoundComponent: () => <div>This a custom Page not found</div>,
@@ -59,7 +65,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body style={{ backgroundColor: "#F5F5F0", color: "#000000", margin: 0, fontFamily: "'Courier New', monospace" }}>
         {children}
         <Scripts />
       </body>

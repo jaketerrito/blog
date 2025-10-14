@@ -17,7 +17,6 @@ function Home() {
 
   return (
     <div>
-      <h1>Posts</h1>
       {postPreviews.map((postPreview) => (
       <div key={postPreview.id}>
           <PostPreview postPreview={postPreview} />
