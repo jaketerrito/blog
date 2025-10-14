@@ -30,10 +30,10 @@ jobs:
     - name: Generate proto
       run: just proto
 
-    - name: Lint
-      run: just lint
+    - name: Check code
+      run: just check
 
-    - name: Test
+    - name: Test code
       run: just test
 
     - name: Log in to GitHub Container Registry
