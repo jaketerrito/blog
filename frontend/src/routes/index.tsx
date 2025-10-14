@@ -1,6 +1,6 @@
 // src/routes/index.tsx
 import { createFileRoute } from "@tanstack/react-router";
-import { getPostPreviews, PostPreview } from "@/features/posts";
+import { getPostPreviews, PostPreviewList } from "@/features/posts";
 import { NewPostButton } from "@/features/posts/components/NewPostButton";
 
 export const Route = createFileRoute("/")({
@@ -17,11 +17,7 @@ function Home() {
 
   return (
     <div>
-      {postPreviews.map((postPreview) => (
-      <div key={postPreview.id}>
-          <PostPreview postPreview={postPreview} />
-      </div>
-      ))}
+      <PostPreviewList postPreviews={postPreviews} />
       <NewPostButton />
     </div>
   );

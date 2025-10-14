@@ -1,3 +1,13 @@
+/* CSS Variables */
+:root {
+  --color-primary: #FF4500;
+  --color-primary-dark: #CC3700;
+  --color-background: #F5F5F0;
+  --color-text: #000000;
+  --color-text-secondary: #666;
+  --color-white: #FFFFFF;
+}
+
 /* Reset and Base Styles */
 * {
   box-sizing: border-box;
@@ -8,24 +18,24 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Courier New', monospace;
-  background-color: #F5F5F0;
-  color: #000000;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1 {
   font-family: 'Press Start 2P', cursive;
-  color: #FF4500;
+  color: var(--color-primary);
 }
 
 a {
-  color: #FF4500;
+  color: var(--color-primary);
   text-decoration: underline;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: #CC3700;
+  color: var(--color-primary-dark);
 }
 
 /* Main Layout */
@@ -41,9 +51,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid #FF4500;
-  font-family: 'Press Start 2P', cursive;
-  color: #FF4500;
+  border-bottom: 1px solid var(--color-primary);
 }
 
 nav a {
@@ -59,7 +67,7 @@ nav a:hover {
 .post-preview {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  border-left: 3px solid #FF4500;
+  border-left: 3px solid var(--color-primary);
 }
 
 .post-content {
@@ -73,19 +81,18 @@ nav a:hover {
 /* Buttons */
 button {
   font-family: 'Press Start 2P', cursive;
-  background-color: #FF4500;
-  color: #F5F5F0;
-  border: 2px solid #FF4500;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem 0.5rem 0.5rem 0;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  border: 2px solid var(--color-primary);
+  padding: 0.5rem 0.5rem;
   cursor: pointer;
   font-size: 0.6rem;
   transition: all 0.2s ease;
 }
 
 button:hover {
-  background-color: #CC3700;
-  border-color: #CC3700;
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
 }
 
 button:active {
@@ -97,16 +104,16 @@ input,
 textarea {
   font-family: 'Courier New', monospace;
   padding: 0.5rem;
-  border: 2px solid #FF4500;
-  background-color: #FFFFFF;
-  color: #000000;
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-white);
+  color: var(--color-text);
   font-size: 1rem;
 }
 
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #CC3700;
+  border-color: var(--color-primary-dark);
 }
 
 /* Utilities */
@@ -118,5 +125,5 @@ textarea:focus {
 
 sub {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--color-text-secondary);
 }
