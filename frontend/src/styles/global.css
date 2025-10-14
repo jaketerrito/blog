@@ -56,7 +56,6 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: inherit;
 }
 
 nav a:hover {
@@ -126,4 +125,35 @@ textarea:focus {
 sub {
   font-size: 0.85rem;
   color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 0.75rem;
+    word-break: break-word;
+  }
+
+  nav {
+    padding: 0.75rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+
+}
+
+@media (max-width: 480px) {
+  nav h1 {
+    font-size: 0.6rem;
+  }
+
+  nav {
+    padding: 0.5rem;
+  }
+
+  main {
+    padding: 0.5rem;
+  }
 }
