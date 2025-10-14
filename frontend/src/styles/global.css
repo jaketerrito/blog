@@ -1,0 +1,122 @@
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+  background-color: #F5F5F0;
+  color: #000000;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P', cursive;
+  color: #FF4500;
+}
+
+a {
+  color: #FF4500;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #CC3700;
+}
+
+/* Main Layout */
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #FF4500;
+  font-family: 'Press Start 2P', cursive;
+  color: #FF4500;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav a:hover {
+  opacity: 0.8;
+}
+
+/* Posts */
+.post-preview {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-left: 3px solid #FF4500;
+}
+
+.post-content {
+  line-height: 1.6;
+}
+
+.post-content h1 {
+  margin-top: 0;
+}
+
+/* Buttons */
+button {
+  font-family: 'Press Start 2P', cursive;
+  background-color: #FF4500;
+  color: #F5F5F0;
+  border: 2px solid #FF4500;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  cursor: pointer;
+  font-size: 0.6rem;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #CC3700;
+  border-color: #CC3700;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Forms */
+input,
+textarea {
+  font-family: 'Courier New', monospace;
+  padding: 0.5rem;
+  border: 2px solid #FF4500;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-size: 1rem;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #CC3700;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+sub {
+  font-size: 0.85rem;
+  color: #666;
+}

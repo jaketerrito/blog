@@ -10,6 +10,7 @@ import { UserAuthenticationContext } from "@/features/auth/context";
 import { Navbar } from "@/components";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getUserAuthData } from "@/features/auth";
+import CSS from "@/styles/global.css?url";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -30,6 +31,7 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap",
       },
+      { rel: 'stylesheet', href: CSS },
     ],
   }),
   component: RootComponent,
@@ -65,7 +67,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-      <body style={{ backgroundColor: "#F5F5F0", color: "#000000", margin: 0, fontFamily: "'Courier New', monospace" }}>
+      <body>
         {children}
         <Scripts />
       </body>
