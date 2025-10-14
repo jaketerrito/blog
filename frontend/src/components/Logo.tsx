@@ -1,7 +1,7 @@
 export function Logo() {
   return (
     <h1>
-      JakeTerrito
+      blog.territo.dev
     </h1>
   );
 }
