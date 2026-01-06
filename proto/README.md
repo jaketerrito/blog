@@ -3,5 +3,5 @@
 
 
 # Commands
-- `buf lint`
+- `buf format -w`
 - `buf breaking`
