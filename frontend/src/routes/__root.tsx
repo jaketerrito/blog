@@ -6,10 +6,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { UserAuthenticationContext } from "@/features/auth/context";
 import { Navbar } from "@/components";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getUserAuthData } from "@/features/auth";
 import CSS from "@/styles/global.css?url";
 
 export const Route = createRootRoute({
@@ -36,28 +34,20 @@ export const Route = createRootRoute({
   }),
   component: RootComponent,
   notFoundComponent: () => <div>This a custom Page not found</div>,
-  loader: async () => {
-    return {
-      userAuthenticationData: await getUserAuthData(),
-    };
-  },
 });
 
 function RootComponent() {
-  const { userAuthenticationData } = Route.useLoaderData();
   const queryClient = new QueryClient();
 
   return (
-    <UserAuthenticationContext.Provider value={userAuthenticationData}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
         <RootDocument>
-          <Navbar />
-          <main>
-            <Outlet />
-          </main>
+            <Navbar />
+            <main>
+                <Outlet />
+            </main>
         </RootDocument>
-      </QueryClientProvider>
-    </UserAuthenticationContext.Provider>
+    </QueryClientProvider>
   );
 }
 
