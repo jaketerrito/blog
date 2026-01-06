@@ -20,5 +20,5 @@ jobs:
           format: true
           lint: true
           breaking: true
-          breaking-against: '.git#branch=main,ref=HEAD~1'
+          breaking_against: '.git#branch=main,ref=HEAD~1,subdir=proto'
           push: false
