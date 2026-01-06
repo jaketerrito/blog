@@ -23,7 +23,7 @@ export function Post({ post }: PostProps) {
   return (
     <div>
       <h1>{post.title || "No title"}</h1>
-      <sub>{formatDate(post.updatedAt)}</sub>
+      <sub>{formatDate(post.date)}</sub>
       <Markdown>{post.content || "No content"}</Markdown>
     </div>
   );

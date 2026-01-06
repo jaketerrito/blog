@@ -3,28 +3,25 @@ import grpc
 from src.PostsServicer import PostsServicer
 import src.proto.posts_pb2_grpc as posts_pb2_grpc
 
-from src.database.connection import create_database_session_factory
 from src.interceptor.ErrorLogger import ErrorLogger
 from grpc_reflection.v1alpha import reflection
 from src.proto.posts_pb2 import DESCRIPTOR
 from src import config
+from src.loader import load_posts
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 def serve():
-    # Create session factory
-    SessionFactory = create_database_session_factory()
+    posts = load_posts(config.CONTENT_DIR)
 
     try:
         server = grpc.server(
             futures.ThreadPoolExecutor(max_workers=10), interceptors=[ErrorLogger()]
         )
 
-        posts_pb2_grpc.add_PostsServiceServicer_to_server(
-            PostsServicer(SessionFactory), server
-        )
+        posts_pb2_grpc.add_PostsServiceServicer_to_server(PostsServicer(posts), server)
 
         # Reflection allows grpcui to discover methods, exposing this on internet maybe not good idea
         SERVICE_NAMES = (
@@ -47,5 +44,4 @@ def serve():
 
 
 if __name__ == "__main__":
-    print("Main block executed")
     serve()

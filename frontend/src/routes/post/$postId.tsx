@@ -1,6 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { getPost, Post } from "@/features/posts";
-import { EditPostButton } from "@/features/posts/components/EditPostButton";
 
 export const Route = createFileRoute("/post/$postId")({
   component: RouteComponent,
@@ -19,7 +18,6 @@ function RouteComponent() {
   return (
     <div>
       <Post post={post} />
-      <EditPostButton postId={post.id} />
     </div>
   );
 }

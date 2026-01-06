@@ -16,8 +16,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
-    
     steps:
     - name: Set up Just
       uses: extractions/setup-just@v3
