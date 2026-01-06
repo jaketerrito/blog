@@ -13,10 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: proto
-    steps:
+        working-directory: ./proto
+   steps:
       - uses: actions/checkout@v4
       - uses: bufbuild/buf-action@v1
+        working-directory: proto
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           format: true
