@@ -11,14 +11,11 @@ permissions:
 jobs:
   buf:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./proto
-   steps:
+    steps:
       - uses: actions/checkout@v4
       - uses: bufbuild/buf-action@v1
-        working-directory: proto
         with:
+          input: ./proto
           github_token: ${{ secrets.GITHUB_TOKEN }}
           format: true
           lint: true
