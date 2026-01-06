@@ -6,8 +6,6 @@ services:
       target: development
     environment:
       - POSTS_API_URL=http://posts:50051
-      - DEV_USER=local@test.com
-      - AUTH_SESSION_SECRET=OGaEIw8Ee75cNguIvGZVE9aKuO9NINJP
     ports:
       - "5173:5173"
       - "3000:3000"

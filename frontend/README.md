@@ -13,5 +13,4 @@ GRPC communication using [nice-grpc](https://github.com/deeplay-io/nice-grpc/tre
 
 # TODO
 TODO: use latest tanstack start
-TODO: auth context use server only fn https://tanstack.com/start/latest/docs/framework/react/authentication#3-authentication-context
 TODO: validate env during startup
