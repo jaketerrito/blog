@@ -6,7 +6,11 @@ on:
       - 'posts/**'
       - 'proto/posts/**'
       - '.github/workflows/posts.yaml'
-
+  pull-request:
+    paths:
+      - 'posts/**'
+      - 'proto/posts/**'
+      - '.github/workflows/posts.yaml'
 jobs:
   ci:
     runs-on: ubuntu-latest
