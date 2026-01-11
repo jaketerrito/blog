@@ -49,13 +49,13 @@ def test_get_post_not_found(context: Mock):
 
 
 def test_get_post_previews(context: Mock):
-    first_post = create_post("2025-01-05T22:30:00Z", "test1", "test1", "test1")
-    second_post = create_post("2025-02-05T22:30:00Z", "test", "test", "test")
-    posts_servicer = PostsServicer({"test1": first_post, "test": second_post})
+    old_post = create_post("2025-01-05T22:30:00Z", "test1", "test1", "test1")
+    new_post = create_post("2025-02-05T22:30:00Z", "test", "test", "test")
+    posts_servicer = PostsServicer({"old": old_post, "new": new_post})
     result = posts_servicer.GetPostPreviews(GetPostPreviewsRequest(), context)
     assert len(result.previews) == 2
-    assert result.previews[0].id == second_post.id
-    assert result.previews[1].id == first_post.id
+    assert result.previews[0].id == new_post.id
+    assert result.previews[1].id == old_post.id
 
 
 def test_get_no_post_previews(context: Mock):

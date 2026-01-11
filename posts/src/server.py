@@ -9,35 +9,46 @@ from src.proto.posts_pb2 import DESCRIPTOR
 from src import config
 from src.loader import load_posts
 import logging
+import signal
 
 logger = logging.getLogger(__name__)
 
+GRACE_PERIOD = 5
+
 
 def serve():
+    logging.basicConfig(level=logging.INFO)
     posts = load_posts(config.CONTENT_DIR)
 
+    server = grpc.server(
+        futures.ThreadPoolExecutor(max_workers=10), interceptors=[ErrorLogger()]
+    )
+
+    posts_pb2_grpc.add_PostsServiceServicer_to_server(PostsServicer(posts), server)
+
+    SERVICE_NAMES = (
+        DESCRIPTOR.services_by_name["PostsService"].full_name,
+        reflection.SERVICE_NAME,
+    )
+    reflection.enable_server_reflection(SERVICE_NAMES, server)
+
+    server.add_insecure_port(f"[::]:{config.PORT}")
+
+    def handle_serve_stop(signum, frame):
+        logger.info("Shutdown signal received. Stopping server...")
+        server.stop(GRACE_PERIOD)
+
+    signal.signal(signal.SIGINT, handle_serve_stop)
+    signal.signal(signal.SIGTERM, handle_serve_stop)
+
     try:
-        server = grpc.server(
-            futures.ThreadPoolExecutor(max_workers=10), interceptors=[ErrorLogger()]
-        )
-
-        posts_pb2_grpc.add_PostsServiceServicer_to_server(PostsServicer(posts), server)
-
-        SERVICE_NAMES = (
-            DESCRIPTOR.services_by_name["PostsService"].full_name,
-            reflection.SERVICE_NAME,
-        )
-        reflection.enable_server_reflection(SERVICE_NAMES, server)
-
-        server.add_insecure_port(f"[::]:{config.PORT}")
         server.start()
         logger.info("Server is running and waiting for connections")
         server.wait_for_termination()
     except Exception as e:
-        logger.error(f"Error in serve(): {e}")
-        import traceback
-
-        traceback.print_exc()
+        logger.error(f"Exception in server: {e}")
+    finally:
+        server.stop(GRACE_PERIOD)
 
 
 if __name__ == "__main__":
