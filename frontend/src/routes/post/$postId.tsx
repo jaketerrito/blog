@@ -17,6 +17,7 @@ function RouteComponent() {
 
   return (
     <div>
+      <title>{post.title}</title>
       <Post post={post} />
     </div>
   );

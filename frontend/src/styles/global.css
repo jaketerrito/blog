@@ -140,8 +140,6 @@ sub {
   main {
     padding: 1rem;
   }
-
-
 }
 
 @media (max-width: 480px) {
