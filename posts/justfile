@@ -35,9 +35,3 @@ test:
 # Generate proto client
 proto:
     docker compose run --no-deps --rm -v $(pwd)/../proto:/proto development python -m grpc_tools.protoc -Isrc/proto=/proto/posts/v1 --python_out=/app --pyi_out=/app --grpc_python_out=/app /proto/posts/v1/posts.proto
-
-make-migrations:
-    docker compose run --rm development alembic revision --autogenerate
-
-migrate:
-    docker compose run --rm development alembic upgrade head

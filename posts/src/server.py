@@ -23,7 +23,6 @@ def serve():
 
         posts_pb2_grpc.add_PostsServiceServicer_to_server(PostsServicer(posts), server)
 
-        # Reflection allows grpcui to discover methods, exposing this on internet maybe not good idea
         SERVICE_NAMES = (
             DESCRIPTOR.services_by_name["PostsService"].full_name,
             reflection.SERVICE_NAME,
@@ -31,8 +30,6 @@ def serve():
         reflection.enable_server_reflection(SERVICE_NAMES, server)
 
         server.add_insecure_port(f"[::]:{config.PORT}")
-        logger.info("Server started")
-
         server.start()
         logger.info("Server is running and waiting for connections")
         server.wait_for_termination()

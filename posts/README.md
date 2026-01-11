@@ -6,16 +6,24 @@
 
 https://realpython.com/python-microservices-grpc/#best-practices
 
+# Content
+Posts are stored as `.md` files in `/posts/conent`
+Formatted like:
+```
+<TITLE: string>
+<ID: string>
+<CREATION TIME: ISO8601>
+
+<Blog Content>
+...
+<Blog Content>
+```
+
 # Local Development
 All commands run through docker compose and just
 `just --list`
 
 # Debugging
 ## [grpcui](https://github.com/fullstorydev/grpcui)
-This runs as a sidecar to the posts service and exposes ui for testing grpc methods.
+This docker container runs along with the posts service and exposes ui for testing grpc methods.
 Accessible at `localhost:8081`
-
-# Database Models
-Managed using [alembic](https://alembic.sqlalchemy.org/en/latest/index.html)
-- `just make-migrations` to generate new migrations
-- `just migrate` to apply the migrations
