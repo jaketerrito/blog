@@ -1,7 +1,0 @@
-exclude = [
-    "**/proto/*",
-    ".venv"
-]
-
-# Line length
-line-length = 88

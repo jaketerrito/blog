@@ -13,7 +13,6 @@ Formatted like:
 <TITLE: string>
 <ID: string>
 <CREATION TIME: ISO8601>
-
 <Blog Content>
 ...
 <Blog Content>
