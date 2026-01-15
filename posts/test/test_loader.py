@@ -7,9 +7,9 @@ def test_load_post():
     postid = "id"
     postdate = "2025-01-05T22:30:00Z"
     postcontent = "This is\nblog post"
-    text = "\n".join([posttitle, postid, postdate, postcontent])
+    text = "\n".join([posttitle, postdate, postcontent])
 
-    post = load_post(text)
+    post = load_post(postid, text)
 
     assert post.title == "title"
     assert post.id == "id"

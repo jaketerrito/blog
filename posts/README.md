@@ -11,7 +11,6 @@ Posts are stored as `.md` files in `/posts/conent`
 Formatted like:
 ```
 <TITLE: string>
-<ID: string>
 <CREATION TIME: ISO8601>
 <Blog Content>
 ...

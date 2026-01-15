@@ -155,3 +155,17 @@ sub {
     padding: 0.5rem;
   }
 }
+
+code {
+  background: #d1d1d1;
+  font-family: monospace;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+}
+
+pre code {
+  display: block;
+  padding: 1rem;
+  background: #d1d1d1;
+  border-radius: 8px;
+}
