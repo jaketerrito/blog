@@ -168,4 +168,6 @@ pre code {
   padding: 1rem;
   background: #d1d1d1;
   border-radius: 8px;
+  overflow-x: auto;
+  max-width: 100%;
 }
