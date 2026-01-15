@@ -108,3 +108,6 @@ This pattern can be reused for other webservices, gateway can handle lots of tra
 ### What's next?
 - [External DNS](https://github.com/kubernetes-sigs/external-dns) can manage DNS records
 - [Cert-manager](https://cert-manager.io/) Current configurations only work for http, which is not secure. Configuring certs will allow traffic over https
+
+### References
+All manifests from this post are made available [here](https://github.com/jaketerrito/gateway-api-service-example)
